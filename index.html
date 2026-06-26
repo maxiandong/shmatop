@@ -14,16 +14,16 @@
             padding: 16px;
             color: #202124;
         }
-        .container { max-width: 1400px; margin: 0 auto; }
-        .layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; }
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr 300px; gap: 16px; }
 
-        .col { display: flex; flex-direction: column; gap: 20px; }
+        .col { display: flex; flex-direction: column; gap: 16px; }
         .news-panel {
             background: white;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(66,133,244,0.08), 0 2px 12px rgba(0,0,0,0.04);
-            border: 1px solid rgba(66,133,244,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
         }
         .news-header {
             padding: 12px 16px;
@@ -31,17 +31,15 @@
             color: white;
             font-size: 15px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         .news-header.football { background: linear-gradient(135deg, #1a73e8, #4285F4); }
         .news-header.basketball { background: linear-gradient(135deg, #ea4335, #fbbc05); }
-        .news-list { padding: 4px 0; max-height: 280px; overflow-y: auto; }
+        .news-header.world { background: linear-gradient(135deg, #34a853, #0d652d); }
+        .news-list { padding: 4px 0; max-height: 220px; overflow-y: auto; }
         .news-item {
             padding: 8px 14px;
             border-bottom: 1px solid #f1f3f4;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             cursor: pointer;
         }
         .news-item:hover { background: #f8f9fa; padding-left: 18px; }
@@ -53,62 +51,85 @@
         .news-list::-webkit-scrollbar-thumb { background: #dadce0; border-radius: 2px; }
 
         .wc-section {
+            grid-column: 1 / -1;
             background: white;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
-            border: 1px solid rgba(66,133,244,0.08);
-            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
+            margin-top: 16px;
         }
         .wc-header {
-            padding: 12px 16px;
+            padding: 14px 20px;
             background: linear-gradient(135deg, #1a73e8, #ea4335);
             color: white;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
-        }
-        .wc-matches { padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-        .wc-match {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px 14px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-size: 13px;
+            gap: 8px;
+        }
+        .wc-matches {
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 12px;
+        }
+        .wc-match {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 12px;
+            padding: 14px;
+            border: 1px solid #e8eaed;
             transition: all 0.2s ease;
         }
-        .wc-match:hover { background: #e8f0fe; transform: translateY(-1px); }
-        .wc-teams { font-weight: 600; color: #202124; }
-        .wc-score { color: #1a73e8; font-weight: 700; font-size: 14px; }
-        .wc-date { color: #999; font-size: 11px; }
+        .wc-match:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .wc-match-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .wc-match-date { font-size: 12px; color: #999; }
+        .wc-match-status { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+        .wc-match-status.live { background: #fce8e6; color: #ea4335; }
+        .wc-match-status.done { background: #e6f4ea; color: #137333; }
+        .wc-match-teams { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .wc-team { flex: 1; text-align: center; }
+        .wc-team-name { font-size: 14px; font-weight: 600; color: #202124; }
+        .wc-team-flag { font-size: 28px; margin-bottom: 4px; }
+        .wc-match-score {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a73e8;
+            padding: 8px 16px;
+            background: #e8f0fe;
+            border-radius: 10px;
+            min-width: 80px;
+            text-align: center;
+        }
+        .wc-match-time { text-align: center; margin-top: 8px; font-size: 12px; color: #5f6368; }
 
-        .right-panel { display: flex; flex-direction: column; gap: 16px; }
+        .right-panel { display: flex; flex-direction: column; gap: 14px; }
         .datetime-card {
             background: white;
-            border-radius: 16px;
-            padding: 18px;
-            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
-            border: 1px solid rgba(66,133,244,0.08);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
         }
-        .dt-time { font-size: 32px; font-weight: 700; color: #1a73e8; text-align: center; font-variant-numeric: tabular-nums; }
-        .dt-date { text-align: center; color: #5f6368; font-size: 14px; margin-top: 6px; }
-        .dt-row { display: flex; gap: 8px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
-        .dt-tag { padding: 4px 10px; border-radius: 10px; font-size: 12px; font-weight: 500; }
+        .dt-time { font-size: 30px; font-weight: 700; color: #1a73e8; text-align: center; font-variant-numeric: tabular-nums; }
+        .dt-date { text-align: center; color: #5f6368; font-size: 13px; margin-top: 4px; }
+        .dt-row { display: flex; gap: 6px; margin-top: 8px; justify-content: center; flex-wrap: wrap; }
+        .dt-tag { padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 500; }
         .dt-weekday { background: #e8f0fe; color: #1a73e8; }
         .dt-lunar { background: linear-gradient(135deg, #4285F4, #34A853); color: white; }
 
         .search-card {
             background: white;
-            border-radius: 16px;
-            padding: 14px;
-            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
-            border: 1px solid rgba(66,133,244,0.08);
+            border-radius: 14px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
         }
-        .search-row { display: flex; gap: 8px; }
+        .search-row { display: flex; gap: 6px; }
         .city-select {
             flex: 1;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 13px;
@@ -120,7 +141,7 @@
         .city-select:focus { border-color: #4285F4; }
         .search-input {
             flex: 1;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 13px;
@@ -129,7 +150,7 @@
         }
         .search-input:focus { border-color: #4285F4; }
         .search-btn {
-            padding: 8px 16px;
+            padding: 8px 14px;
             background: linear-gradient(135deg, #4285F4, #34A853);
             color: white;
             border: none;
@@ -137,99 +158,92 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            white-space: nowrap;
         }
 
         .weather-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
-            border: 1px solid rgba(66,133,244,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
         }
         .weather-header {
-            padding: 12px 16px;
+            padding: 10px 14px;
             background: linear-gradient(135deg, #4285F4, #34A853);
             color: white;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
         }
-        .weather-body { padding: 16px; }
-        .wc-city { font-size: 18px; font-weight: 700; color: #202124; margin-bottom: 8px; text-align: center; }
-        .wc-main { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; justify-content: center; }
-        .wc-icon { font-size: 64px; animation: pulse 2s ease-in-out infinite; }
+        .weather-body { padding: 14px; }
+        .wc-city { font-size: 16px; font-weight: 700; color: #202124; margin-bottom: 6px; text-align: center; }
+        .wc-main { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; justify-content: center; }
+        .wc-icon { font-size: 56px; animation: pulse 2s ease-in-out infinite; }
         @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .wc-temp { font-size: 40px; font-weight: 700; color: #1a73e8; }
-        .wc-desc { font-size: 15px; color: #5f6368; }
-        .wc-info { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-        .wc-info-item { padding: 8px; background: #f8f9fa; border-radius: 8px; text-align: center; }
-        .wc-info-label { font-size: 11px; color: #999; }
-        .wc-info-value { font-size: 14px; font-weight: 600; color: #202124; }
-        .wc-tips { display: flex; gap: 6px; flex-wrap: wrap; }
-        .wc-tip { padding: 5px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+        .wc-temp { font-size: 36px; font-weight: 700; color: #1a73e8; }
+        .wc-desc { font-size: 13px; color: #5f6368; }
+        .wc-info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+        .wc-info-item { padding: 6px; background: #f8f9fa; border-radius: 8px; text-align: center; }
+        .wc-info-label { font-size: 10px; color: #999; }
+        .wc-info-value { font-size: 13px; font-weight: 600; color: #202124; }
+        .wc-tips { display: flex; gap: 4px; flex-wrap: wrap; }
+        .wc-tip { padding: 4px 8px; border-radius: 10px; font-size: 10px; font-weight: 500; }
 
-        .forecast { margin-top: 12px; }
-        .forecast-title { font-size: 14px; font-weight: 700; color: #1a73e8; margin-bottom: 10px; }
-        .forecast-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .forecast { margin-top: 10px; }
+        .forecast-title { font-size: 13px; font-weight: 700; color: #1a73e8; margin-bottom: 8px; }
+        .forecast-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
         .day-card {
             background: #f8f9fa;
-            border-radius: 10px;
-            padding: 8px 4px;
+            border-radius: 8px;
+            padding: 6px 2px;
             text-align: center;
             transition: all 0.2s ease;
         }
-        .day-card:hover { transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .day-date { font-size: 10px; color: #999; }
-        .day-icon { font-size: 28px; margin: 4px 0; }
-        .day-temp { font-size: 12px; font-weight: 700; color: #202124; }
+        .day-card:hover { transform: translateY(-2px); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .day-date { font-size: 9px; color: #999; }
+        .day-icon { font-size: 22px; margin: 2px 0; }
+        .day-temp { font-size: 10px; font-weight: 700; color: #202124; }
 
-        .spinner { width: 28px; height: 28px; border: 3px solid #e0e0e0; border-top-color: #4285F4; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 8px; }
+        .spinner { width: 24px; height: 24px; border: 3px solid #e0e0e0; border-top-color: #4285F4; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 6px; }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @media (max-width: 1000px) {
-            .layout { grid-template-columns: 1fr; }
-            .right-panel { flex-direction: row; flex-wrap: wrap; }
-            .right-panel > * { flex: 1; min-width: 280px; }
-            .news-list { max-height: 250px; }
+        @media (max-width: 1100px) {
+            .main-layout { grid-template-columns: 1fr 1fr; }
+            .right-panel { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; }
+            .right-panel > * { flex: 1; min-width: 260px; }
         }
         @media (max-width: 700px) {
-            .col { gap: 16px; }
+            .main-layout { grid-template-columns: 1fr; }
             .right-panel { flex-direction: column; }
             .right-panel > * { min-width: auto; }
-            .wc-icon { font-size: 72px; }
-            .wc-temp { font-size: 44px; }
+            .wc-icon { font-size: 64px; }
+            .wc-temp { font-size: 40px; }
             .wc-matches { grid-template-columns: 1fr; }
+            .news-list { max-height: 200px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="layout">
-            <div>
-                <div class="col">
-                    <div class="news-panel">
-                        <div class="news-header">🇨🇳 国内新闻</div>
-                        <div class="news-list" id="cnNews"></div>
-                    </div>
-                    <div class="news-panel">
-                        <div class="news-header football">⚽ 足球新闻</div>
-                        <div class="news-list" id="footballNews"></div>
-                    </div>
+        <div class="main-layout">
+            <div class="col">
+                <div class="news-panel">
+                    <div class="news-header">🇨🇳 国内新闻</div>
+                    <div class="news-list" id="cnNews"></div>
                 </div>
-                <div class="col" style="margin-top:20px">
-                    <div class="news-panel">
-                        <div class="news-header">🌍 国际新闻</div>
-                        <div class="news-list" id="worldNews"></div>
-                    </div>
-                    <div class="news-panel">
-                        <div class="news-header basketball">🏀 篮球新闻</div>
-                        <div class="news-list" id="basketballNews"></div>
-                    </div>
+                <div class="news-panel">
+                    <div class="news-header football">⚽ 足球新闻</div>
+                    <div class="news-list" id="footballNews"></div>
                 </div>
-                <div class="wc-section">
-                    <div class="wc-header">🏆 FIFA 世界杯近三天赛况</div>
-                    <div class="wc-matches" id="wcMatches"></div>
+            </div>
+            <div class="col">
+                <div class="news-panel">
+                    <div class="news-header world">🌍 国际新闻</div>
+                    <div class="news-list" id="worldNews"></div>
+                </div>
+                <div class="news-panel">
+                    <div class="news-header basketball">🏀 篮球新闻</div>
+                    <div class="news-list" id="basketballNews"></div>
                 </div>
             </div>
             <div class="right-panel">
@@ -249,7 +263,7 @@
                             <option value="张家港">张家港</option>
                         </select>
                     </div>
-                    <div class="search-row" style="margin-top:8px">
+                    <div class="search-row" style="margin-top:6px">
                         <input type="text" class="search-input" id="searchInput" placeholder="搜索城市..." onkeypress="if(event.key==='Enter')searchCity()">
                         <button class="search-btn" onclick="searchCity()">🔍</button>
                     </div>
@@ -257,30 +271,36 @@
                 <div class="weather-card">
                     <div class="weather-header">🌤️ 天气</div>
                     <div class="weather-body" id="weatherContent">
-                        <div style="text-align:center;padding:20px"><div class="spinner"></div><div style="color:#999;font-size:13px">加载中...</div></div>
+                        <div style="text-align:center;padding:16px"><div class="spinner"></div><div style="color:#999;font-size:12px">加载中...</div></div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="wc-section">
+            <div class="wc-header">🏆 FIFA 世界杯近三天赛况</div>
+            <div class="wc-matches" id="wcMatches"></div>
+        </div>
     </div>
     <script>
-        const CN_NEWS = [{"title": "受地震影响 日本成田机场部分跑道关闭", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647689.shtml", "time": "Fri, 26 Jun 2026 12:53:24 +0800"}, {"title": "广州民警赵建：十余载攻坚死因难题 在“微米级”里探寻真相", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647666.shtml", "time": "Fri, 26 Jun 2026 12:52:44 +0800"}, {"title": "两岸媒体走进四川 台资企业参与乡村振兴引关注", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647662.shtml", "time": "Fri, 26 Jun 2026 12:52:24 +0800"}, {"title": "“海智赋能 科创未来”国际人才看扬州活动举行 三大服务平台集中授牌", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647661.shtml", "time": "Fri, 26 Jun 2026 12:52:06 +0800"}, {"title": "广西国际友城职业教育联盟扩容 深化东盟职教合作", "link": "https://www.chinanews.com.cn/aseaninfo/2026/06-26/10647645.shtml", "time": "Fri, 26 Jun 2026 12:51:50 +0800"}, {"title": "东西问｜张志国：为何可用《易经》方法解读阴山岩画？", "link": "https://www.chinanews.com.cn/dxw/2026/06-26/10647638.shtml", "time": "Fri, 26 Jun 2026 12:50:22 +0800"}, {"title": "日本东海第二核电站处于停运状态", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647688.shtml", "time": "Fri, 26 Jun 2026 12:45:03 +0800"}, {"title": "公安部：1至5月全国破获毒品犯罪案件1.2万起", "link": "https://www.chinanews.com.cn/fz/2026/06-26/10647687.shtml", "time": "Fri, 26 Jun 2026 12:40:55 +0800"}, {"title": "重庆举行金融助力台企上市交流会", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647646.shtml", "time": "Fri, 26 Jun 2026 12:25:30 +0800"}, {"title": "广西6条河流7个水文站出现超警洪水", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647659.shtml", "time": "Fri, 26 Jun 2026 12:25:06 +0800"}, {"title": "“山东—东盟中小企业合作中心”揭牌", "link": "https://www.chinanews.com.cn/aseaninfo/2026/06-26/10647644.shtml", "time": "Fri, 26 Jun 2026 12:24:36 +0800"}, {"title": "这些“市井好物”皆是毒！", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647682.shtml", "time": "Fri, 26 Jun 2026 12:12:18 +0800"}, {"title": "日本千叶县发生5.8级地震 东京地区震感强烈", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647681.shtml", "time": "Fri, 26 Jun 2026 12:02:27 +0800"}, {"title": "国家能源局：“十五五”期间加力推进“西能西用”", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647678.shtml", "time": "Fri, 26 Jun 2026 12:01:55 +0800"}, {"title": "委内瑞拉强震后的第二晚 人们露宿在街头", "link": "http://www.chinanews.com.cn/tp/hd2011/2026/06-26/1195823.shtml", "time": "Fri, 26 Jun 2026 12:00:58 +0800"}, {"title": "日本千叶县发生5.8级地震 东京等多地震感强烈", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647679.shtml", "time": "Fri, 26 Jun 2026 12:00:33 +0800"}, {"title": "港理大举办第三届中国外交专题讲座 厚植学生家国情怀", "link": "https://www.chinanews.com.cn/dwq/2026/06-26/10647652.shtml", "time": "Fri, 26 Jun 2026 11:57:30 +0800"}, {"title": "渝昆高铁全线隧道、桥梁、路基等线下工程建设完成", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647648.shtml", "time": "Fri, 26 Jun 2026 11:54:46 +0800"}, {"title": "日本发生地震，东京震感强烈", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647677.shtml", "time": "Fri, 26 Jun 2026 11:54:26 +0800"}, {"title": "昆仑山口“云端哨所”4868米的无声默契与热烈回响", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647632.shtml", "time": "Fri, 26 Jun 2026 11:52:54 +0800"}];
-        const WORLD_NEWS = [];
-        const FOOTBALL_NEWS = [{"title": "USMNT player ratings: Turner earns 3/10 as U.S. co...", "link": "https://www.espn.com/soccer/story/_/id/49182087/usmnt-player-ratings-turner-3-10-first-world-cup-loss-turkiye", "time": "Fri, 26 Jun 2026 00:49:08 EST"}, {"title": "Pulisic subs on as Türkiye beats U.S. on last kick...", "link": "https://www.espn.com/soccer/story/_/id/49179213/christian-pulisic-subs-us-loses-turkiye-last-kick", "time": "Fri, 26 Jun 2026 00:45:54 EST"}, {"title": "Sources: Anderson joins City on club record deal", "link": "https://www.espn.com/soccer/story/_/id/49179426/elliot-anderson-man-city-transfer-agreed-nottingham-forest-england", "time": "Fri, 26 Jun 2026 00:45:45 EST"}, {"title": "USMNT to face Bosnia in World Cup round of 32", "link": "https://www.espn.com/soccer/story/_/id/49181937/usa-bosnia-herzegovina-world-cup-round-32-knockout", "time": "Fri, 26 Jun 2026 00:45:54 EST"}, {"title": "Japan book Brazil WC clash; Sweden also advance", "link": "https://www.espn.com/soccer/story/_/id/49181192/japan-brazil-2026-world-cup-round-32-sweden-knockout", "time": "Fri, 26 Jun 2026 00:45:54 EST"}, {"title": "Ecuador shock Germany, seal spot in WC knockouts", "link": "https://www.espn.com/soccer/story/_/id/49179704/ecuador-germany-fifa-world-cup-2026-knockout-stage-group-e", "time": "Fri, 26 Jun 2026 00:45:54 EST"}, {"title": "Faé fires back at Schweinsteiger's 'racist' remark...", "link": "https://www.espn.com/soccer/story/_/id/49181018/ivory-coast-coach-slams-schweinsteiger-racist-african-football-comments", "time": "Fri, 26 Jun 2026 00:45:54 EST"}, {"title": "Sources: Man Utd near new loan deal for Onana", "link": "https://www.espn.com/soccer/story/_/id/49177076/man-united-new-loan-deal-trabzonspor-andre-onana-sources", "time": "Fri, 26 Jun 2026 00:45:44 EST"}, {"title": "Sources: Putellas reaches deal with Lionesses", "link": "https://www.espn.com/soccer/story/_/id/49176078/alexia-putellas-reaches-agreement-london-city-lionesses-sources", "time": "Fri, 26 Jun 2026 00:45:45 EST"}, {"title": "🤔 Permutations: How teams qualify for knockouts", "link": "https://www.espn.com/soccer/story/_/id/49031236/2026-world-cup-group-stage-clinching-scenarios-knockout-rounds-elimination", "time": "Fri, 26 Jun 2026 00:45:45 EST"}, {"title": "World Cup Daily live: Group F finale sees Netherla...", "link": "https://www.espn.com/soccer/story/_/id/49172255/world-cup-daily-live-neymar-inspired-lewis-hamilton-brazil-return-usmnt-action", "time": "Fri, 26 Jun 2026 00:18:43 EST"}, {"title": "Backs against the wall, Ecuador conjure World Cup ...", "link": "https://www.espn.com/soccer/story/_/id/49180798/ecuador-conjure-world-cup-magic-upset-germany", "time": "Thu, 25 Jun 2026 22:21:05 EST"}, {"title": "If Japan are dreaming of winning the World Cup, Br...", "link": "https://www.espn.com/soccer/story/_/id/49181978/if-japan-dreaming-world-cup-brazil-test-key", "time": "Thu, 25 Jun 2026 22:21:05 EST"}, {"title": "FIFA president clocks up 24,000 miles on epic Worl...", "link": "https://www.espn.com/soccer/story/_/id/49116383/infantino-fifa-presidents-epic-world-cup-tour", "time": "Thu, 25 Jun 2026 16:13:26 EST"}, {"title": "The story of Christian Pulisic, U.S. stars, a trip...", "link": "https://www.espn.com/soccer/story/_/id/49171253/christian-pulisic-weston-mckennie-zendejas-pizza-usmnt-world-cup-golf-carts", "time": "Thu, 25 Jun 2026 17:14:39 EST"}, {"title": "World Cup Power Rankings after two games: Who is N...", "link": "https://www.espn.com/soccer/story/_/id/49154319/fifa-world-cup-power-rankings-spain-brazil-germany-usa-mexico-england-argentina-france", "time": "Thu, 25 Jun 2026 09:48:38 EST"}, {"title": "Copy of Why every round-of-32 team will, won't win the Wor...", "link": "https://www.espn.com/soccer/story/_/id/49118437/fifa-world-cup-predictions-analysis-projections-usa-mexico-spain-brazil-england-argentina-germany-france", "time": "Thu, 25 Jun 2026 09:48:38 EST"}, {"title": "Tartan Army's Time Out: How Scotland got stuck in ...", "link": "https://www.espn.com/soccer/story/_/id/49179003/scotland-tartan-army-world-cup-steve-clarke-third-place-limbo-tom-hamilton", "time": "Thu, 25 Jun 2026 18:53:07 EST"}, {"title": "Transfer rumors, news: Man United want Scotland 'k...", "link": "https://www.espn.com/soccer/story/_/id/49173065/transfer-rumors-news-manchester-united-want-scotland-goalkeeper-gunn", "time": "Thu, 25 Jun 2026 17:15:53 EST"}, {"title": "Aguirre's pragmatic Mexico has its doubters, but i...", "link": "https://www.espn.com/soccer/story/_/id/49172297/aguirres-pragmatic-mexico-doubters-built-world-cup-success", "time": "Thu, 25 Jun 2026 05:45:15 EST"}];
-        const BASKETBALL_NEWS = [{"title": "LaMelo Ball traded to Minnesota! Which team gets a...", "link": "https://www.espn.com/nba/story/_/id/49135150/2026-nba-offseason-trade-grades-contracts-new-deals-rosters-teams", "time": "Thu, 25 Jun 2026 13:14:16 EST"}, {"title": "Clippers draftee Ngoy opts for Auburn next season", "link": "https://www.espn.com/mens-college-basketball/story/_/id/49180679/clippers-draft-pick-ngoy-plans-play-auburn-season", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Sources: Williams back to Suns for 3 years, $38M", "link": "https://www.espn.com/nba/story/_/id/49180880/sources-mark-williams-return-suns-3-year-38m-deal", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Copy of Sources: Hornets' Ball to Wolves for Reid, picks", "link": "https://www.espn.com/nba/story/_/id/49175343/hornets-trade-ball-timberwolves-reid-picks", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Blazers' Nori ready to lead after waiting for shot...", "link": "https://www.espn.com/nba/story/_/id/49180510/micah-nori-get-discouraged-waiting-hc-chance", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Wizards' Dybantsa unveils No. 4 jersey in D.C.", "link": "https://www.espn.com/nba/story/_/id/49179050/aj-dybantsa-unveils-no-4-jersey-wizards-arrival-dc", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "'Grateful' Horford continues career with Warriors", "link": "https://www.espn.com/nba/story/_/id/49175178/al-horford-says-returning-warriors-play-20th-season", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "White plans to re-sign with Hornets, sources say", "link": "https://www.espn.com/nba/story/_/id/49176539/sources-coby-white-re-sign-hornets-3-year-74m-deal", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Sources: Celtics still actively talking Brown trad...", "link": "https://www.espn.com/nba/story/_/id/49173956/sources-celtics-remain-active-talks-trade-jaylen-brown", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "⭐ Dybansta, Boozer top NBA draft superlatives", "link": "https://www.espn.com/nba/story/_/id/49169047/nba-2026-draft-superlatives-aj-dybansta-cameron-boozer", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Draft grades for all 30 NBA teams: Why the Grizzli...", "link": "https://www.espn.com/nba/story/_/id/49147426/2026-nba-draft-grades-winners-losers-sleepers-best-picks-value-reaches-all-30-teams-classes", "time": "Thu, 25 Jun 2026 15:55:46 EST"}, {"title": "College coaches on top draft picks: Dybantsa vs. P...", "link": "https://www.espn.com/mens-college-basketball/story/_/id/49167037/coaches-confidential-2026-nba-draft-picks-dybantsa-peterson-point-guards-sleepers", "time": "Thu, 25 Jun 2026 15:55:46 EST"}, {"title": "Debut 2027 NBA mock draft: Stokes, Mullins and top prospects to watch", "link": "https://www.espn.com/nba/story/_/id/49101766/2027-nba-mock-draft-no-1-pick-options-top-players-race-picks", "time": "Thu, 25 Jun 2026 19:05:37 EST"}, {"title": "Biggest winners -- and question marks -- from Roun...", "link": "https://www.espn.com/nba/story/_/id/49085674/2026-nba-draft-round-1-winners-surprises-teams-picks-questions-washington-jazz-memphis", "time": "Wed, 24 Jun 2026 20:12:20 EST"}, {"title": "Grades for both sides of the Giannis trade: Winner...", "link": "https://www.espn.com/nba/story/_/id/49112635/giannis-antetokounmpo-trade-grades-winners-losers-reaction-bucks-heat", "time": "Wed, 24 Jun 2026 15:27:23 EST"}, {"title": "Giannis traded to Heat: Everything we know about t...", "link": "https://www.espn.com/nba/story/_/id/49144931/giannis-traded-heat-faq-blockbuster-move-means-bucks-celtics-draft-playoff-race", "time": "Wed, 24 Jun 2026 15:27:23 EST"}, {"title": "Latest NBA buzz: Everything we're hearing ahead of...", "link": "https://www.espn.com/nba/story/_/id/48377855/2026-nba-buzz-latest-live-updates-news-intel-nba-draft-offseason", "time": "Wed, 24 Jun 2026 23:36:52 EST"}, {"title": "Grades for every NBA free agent signing: Suns, Haw...", "link": "https://www.espn.com/nba/story/_/id/48957095/2026-nba-free-agency-grades-offseason-signings-deals-contracts-extensions-depth-charts", "time": "Thu, 25 Jun 2026 15:41:00 EST"}, {"title": "NBA trade tracker: Thunder send Aaron Wiggins to H...", "link": "https://www.espn.com/nba/story/_/id/48957844/nba-trade-tracker-details-every-deal-2026-offseason-draft-free-agency", "time": "Thu, 25 Jun 2026 15:41:00 EST"}, {"title": "Copy of Stephen Curry responds to Yaxel Lendeborg's 'used ...", "link": "https://www.espn.com/nba/story/_/id/49176705/stephen-curry-yaxel-lendeborg-golden-state-warriors-joke", "time": "Thu, 25 Jun 2026 14:21:28 EST"}];
-        const WC_MATCHES = [{"date": "06-26", "home": "Paraguay", "away": "Australia", "score": "VS", "time": "02:00"}, {"date": "06-26", "home": "Norway", "away": "France", "score": "VS", "time": "19:00"}, {"date": "06-25", "home": "South Africa", "away": "South Korea", "score": "VS", "time": "01:00"}, {"date": "06-25", "home": "Curaçao", "away": "Ivory Coast", "score": "VS", "time": "20:00"}, {"date": "06-25", "home": "Ecuador", "away": "Germany", "score": "VS", "time": "20:00"}, {"date": "06-24", "home": "Morocco", "away": "Haiti", "score": "VS", "time": "22:00"}, {"date": "06-24", "home": "Scotland", "away": "Brazil", "score": "VS", "time": "22:00"}, {"date": "06-24", "home": "Switzerland", "away": "Canada", "score": "VS", "time": "19:00"}];
+        const CN_NEWS = [{"title": "年产值约60亿元的汽车涂料生产基地项目落户广州", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647721.shtml", "time": "Fri, 26 Jun 2026 13:52:53 +0800"}, {"title": "两岸客家乡亲齐聚河源 同台献艺共叙血脉亲情", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647720.shtml", "time": "Fri, 26 Jun 2026 13:51:53 +0800"}, {"title": "宛若绝美仙境 九寨风光入画来", "link": "http://www.chinanews.com.cn/tp/hd2011/2026/06-26/1195828.shtml", "time": "Fri, 26 Jun 2026 13:51:15 +0800"}, {"title": "（乡村行·看振兴）山西临汾：“电保姆”护航 鸵鸟产业“破壳”出圈", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647719.shtml", "time": "Fri, 26 Jun 2026 13:51:09 +0800"}, {"title": "俄罗斯称一夜之间击落660架乌克兰无人机", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647713.shtml", "time": "Fri, 26 Jun 2026 13:49:33 +0800"}, {"title": "发布大量不当言论、公然侮辱张桂梅校长 一网民被行拘", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647715.shtml", "time": "Fri, 26 Jun 2026 13:48:55 +0800"}, {"title": "大猿何时出现与人类相似的笑声？最新研究称已持续至少1500万年", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647718.shtml", "time": "Fri, 26 Jun 2026 13:46:59 +0800"}, {"title": "广东落地全国首批民营企业再贷款线上交易业务", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647717.shtml", "time": "Fri, 26 Jun 2026 13:46:39 +0800"}, {"title": "侨乡漳州为食品产业发展注入科创新动能", "link": "https://www.chinanews.com.cn/hr/2026/06-26/10647716.shtml", "time": "Fri, 26 Jun 2026 13:45:35 +0800"}, {"title": "澳大利亚官员：澳中互为重要贸易伙伴，链博会助力打造更高效网络 | 世界观", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647714.shtml", "time": "Fri, 26 Jun 2026 13:44:03 +0800"}, {"title": "港澳人士看亚欧博览会：为企业拓展中亚市场按下“加速键”", "link": "https://www.chinanews.com.cn/dwq/2026/06-26/10647707.shtml", "time": "Fri, 26 Jun 2026 13:43:55 +0800"}, {"title": "百余件清代至民国鼻烟壶山西太原展出", "link": "https://www.chinanews.com.cn/cul/2026/06-26/10647704.shtml", "time": "Fri, 26 Jun 2026 13:42:21 +0800"}, {"title": "前5个月黄埔海关辖区出口锂离子蓄电池同比增长超35%", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647703.shtml", "time": "Fri, 26 Jun 2026 13:40:59 +0800"}, {"title": "“无主”冻货在南阳被查扣并拍卖？河南南阳通报", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647710.shtml", "time": "Fri, 26 Jun 2026 13:39:25 +0800"}, {"title": "广西来宾：田园铺展丰收色", "link": "http://www.chinanews.com.cn/tp/hd2011/2026/06-26/1195853.shtml", "time": "Fri, 26 Jun 2026 13:36:05 +0800"}, {"title": "青海西宁市城东区开展“石榴籽家园”观摩学习活动", "link": "https://www.chinanews.com.cn/txy/2026/06-26/10647711.shtml", "time": "Fri, 26 Jun 2026 13:31:44 +0800"}, {"title": "全球最大甲醇双燃料集装箱船“东方智慧”轮交付启航", "link": "http://www.chinanews.com.cn/tp/hd2011/2026/06-26/1195849.shtml", "time": "Fri, 26 Jun 2026 13:28:48 +0800"}, {"title": "湖南民盟省委会召开“地域+领域”组团式帮扶七星关区教育工作推进会", "link": "https://www.chinanews.com.cn/txy/2026/06-26/10647708.shtml", "time": "Fri, 26 Jun 2026 13:28:02 +0800"}, {"title": "南溪号子：土家老调腔起深谷，即兴留歌情唤新景", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647702.shtml", "time": "Fri, 26 Jun 2026 13:26:08 +0800"}, {"title": "赢得荣誉！土耳其队3比2绝杀美国队 告别世界杯", "link": "http://www.chinanews.com.cn/tp/hd2011/2026/06-26/1195835.shtml", "time": "Fri, 26 Jun 2026 13:25:07 +0800"}];
+        const WORLD_NEWS = [{"title": "Rescuers search rubble for survivors as Venezuela earthquakes kill at least 235", "link": "https://www.bbc.co.uk/news/articles/cjegdqw5d3yo?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 03:24:12 GMT"}, {"title": "Earthquake is devastating blow to Venezuela at time of uncertainty", "link": "https://www.bbc.co.uk/news/articles/c3vynpw7rk4o?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 02:12:07 GMT"}, {"title": "People flee as building collapses on Caracas outskirts", "link": "https://www.bbc.co.uk/news/videos/c78y1e3606vo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 12:08:30 GMT"}, {"title": "Paris restricts alcohol consumption and sales as Europe's heatwave shifts east", "link": "https://www.bbc.co.uk/news/articles/cwy0pdq89zno?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 00:06:45 GMT"}, {"title": "UN pauses Strait of Hormuz evacuation plan after cargo ship attacked", "link": "https://www.bbc.co.uk/news/articles/cjwg9np904qo?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 00:28:02 GMT"}, {"title": "Women alleging rape and sexual assault in France call to abolish statute of limitations", "link": "https://www.bbc.co.uk/news/articles/ckg7z5dvxnzo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 18:50:12 GMT"}, {"title": "Supreme Court allows Trump to end protected status for Haitian and Syrian immigrants", "link": "https://www.bbc.co.uk/news/articles/c4g8ym422lko?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 02:18:04 GMT"}, {"title": "Trump asks Congress for billions for Iran war, after tension with Republicans", "link": "https://www.bbc.co.uk/news/articles/c1eydwldzdjo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 09:06:59 GMT"}, {"title": "Families lay flowers on barbed wire barricade on anniversary of deadly Kenya protests", "link": "https://www.bbc.co.uk/news/articles/cgqjl8kj8wpo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 16:53:51 GMT"}, {"title": "Ryanair says it will reluctantly not charge parents to sit next to children", "link": "https://www.bbc.co.uk/news/articles/cdr4zy4e1n1o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 12:08:33 GMT"}, {"title": "Oil price falls back to pre-Iran war levels", "link": "https://www.bbc.co.uk/news/articles/c0jy7d7wzv4o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 15:32:04 GMT"}, {"title": "Key figure in South Africa police corruption scandal pleads guilty", "link": "https://www.bbc.co.uk/news/articles/cx2j4g5k52jo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 14:00:13 GMT"}, {"title": "IBM hails new 'block of flats' design breakthrough for ultra tiny chips", "link": "https://www.bbc.co.uk/news/articles/cvg7vpyn5pxo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 10:04:43 GMT"}, {"title": "Philippines bans video game played by alleged high school shooter", "link": "https://www.bbc.co.uk/news/articles/c14y7738nm8o?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 22:14:12 GMT"}, {"title": "Anthropic accuses Chinese rival Alibaba of illicitly extracting AI capabilities", "link": "https://www.bbc.co.uk/news/articles/cwyklykn5dwo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 03:12:17 GMT"}, {"title": "Independent MPs launch new Australian centrist party", "link": "https://www.bbc.co.uk/news/articles/ckg76mgz0m1o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 02:41:28 GMT"}, {"title": "Clean sweep for Mamdani-backed candidates in New York's Democratic primary", "link": "https://www.bbc.co.uk/news/articles/clye652m41po?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 13:03:35 GMT"}, {"title": "Air conditioning creates political divide after France records hottest day", "link": "https://www.bbc.co.uk/news/articles/c4gyqldl3p5o?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 13:51:24 GMT"}, {"title": "Biggest city in Crimea without power after Ukraine strikes", "link": "https://www.bbc.co.uk/news/articles/c3ryv72pjqno?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 09:48:24 GMT"}, {"title": "UN nuclear chief says inspectors will visit Iran sites as part of war deal", "link": "https://www.bbc.co.uk/news/articles/cpd395zv81vo?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 17:31:48 GMT"}];
+        const FOOTBALL_NEWS = [{"title": "（美加墨世界杯）日本队与瑞典队“握手言和” 成为首支出线亚洲球队", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647686.shtml", "time": "Fri, 26 Jun 2026 13:01:01 +0800"}, {"title": "日本1-1战平瑞典 小组第二晋级淘汰赛将战巴西队", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647627.shtml", "time": "Fri, 26 Jun 2026 10:50:32 +0800"}, {"title": "荷兰3-1大胜突尼斯 小组第一晋级淘汰赛将战摩洛哥", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647626.shtml", "time": "Fri, 26 Jun 2026 10:49:16 +0800"}, {"title": "（美加墨世界杯）厄瓜多尔战胜德国晋级 科特迪瓦送库拉索出局", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647505.shtml", "time": "Fri, 26 Jun 2026 08:35:00 +0800"}, {"title": "5名奥运冠军领衔 国家步手枪射击队亚运会参赛名单公布", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647494.shtml", "time": "Fri, 26 Jun 2026 07:47:21 +0800"}, {"title": "世界杯早知道丨德国1-2厄瓜多尔小组第一晋级 库拉索0-2科特迪瓦", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647474.shtml", "time": "Fri, 26 Jun 2026 06:23:35 +0800"}, {"title": "中国队夺得亚洲体操锦标赛女子团体和个人全能冠军", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647471.shtml", "time": "Fri, 26 Jun 2026 00:22:47 +0800"}, {"title": "（美加墨世界杯）韩国不敌南非跌至小组第三 出线前景待定", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647427.shtml", "time": "Thu, 25 Jun 2026 21:53:15 +0800"}, {"title": "甘肃第十一届少数民族传统体育运动会七月开赛 参赛规模创历届之最", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647381.shtml", "time": "Thu, 25 Jun 2026 21:14:27 +0800"}, {"title": "孙兴慜替补难救主，韩国队缘何陷入出线危局？", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647376.shtml", "time": "Thu, 25 Jun 2026 21:05:31 +0800"}, {"title": "世界大学生自行车锦标赛崇礼开赛  中国选手摘金", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647315.shtml", "time": "Thu, 25 Jun 2026 20:24:04 +0800"}, {"title": "中国足协：《足球竞赛规则2026/2027》将于7月1日生效", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647305.shtml", "time": "Thu, 25 Jun 2026 19:42:25 +0800"}, {"title": "2026年“民体杯”全国民族式摔跤比赛在内蒙古开赛", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647262.shtml", "time": "Thu, 25 Jun 2026 18:46:43 +0800"}, {"title": "世界杯32强已产生13席 日本队主帅称目标小组第一", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647062.shtml", "time": "Thu, 25 Jun 2026 14:53:25 +0800"}, {"title": "首届广东“技超”联赛总决赛闭幕 推动技工教育协同发展", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647031.shtml", "time": "Thu, 25 Jun 2026 14:36:54 +0800"}, {"title": "（美加墨世界杯）南非爆冷胜韩国 携手墨西哥晋级淘汰赛", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647023.shtml", "time": "Thu, 25 Jun 2026 14:17:53 +0800"}, {"title": "中国乒协公示亚运会参赛名单 王楚钦、孙颖莎身兼三项", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647021.shtml", "time": "Thu, 25 Jun 2026 14:03:06 +0800"}, {"title": "斯诺克冠军联赛：中国球手张安达突围成功晋级32强", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647004.shtml", "time": "Thu, 25 Jun 2026 13:45:18 +0800"}, {"title": "（美加墨世界杯）维尼修斯“双响”助巴西头名晋级 摩洛哥4：2胜海地", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10646948.shtml", "time": "Thu, 25 Jun 2026 11:59:42 +0800"}, {"title": "欧文兑现与贵州“村超”的三年之约", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10646906.shtml", "time": "Thu, 25 Jun 2026 11:29:30 +0800"}];
+        const BASKETBALL_NEWS = [{"title": "（美加墨世界杯）日本队与瑞典队“握手言和” 成为首支出线亚洲球队", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647686.shtml", "time": "Fri, 26 Jun 2026 13:01:01 +0800"}, {"title": "日本1-1战平瑞典 小组第二晋级淘汰赛将战巴西队", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647627.shtml", "time": "Fri, 26 Jun 2026 10:50:32 +0800"}, {"title": "荷兰3-1大胜突尼斯 小组第一晋级淘汰赛将战摩洛哥", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647626.shtml", "time": "Fri, 26 Jun 2026 10:49:16 +0800"}, {"title": "（美加墨世界杯）厄瓜多尔战胜德国晋级 科特迪瓦送库拉索出局", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647505.shtml", "time": "Fri, 26 Jun 2026 08:35:00 +0800"}, {"title": "5名奥运冠军领衔 国家步手枪射击队亚运会参赛名单公布", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647494.shtml", "time": "Fri, 26 Jun 2026 07:47:21 +0800"}, {"title": "世界杯早知道丨德国1-2厄瓜多尔小组第一晋级 库拉索0-2科特迪瓦", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647474.shtml", "time": "Fri, 26 Jun 2026 06:23:35 +0800"}, {"title": "中国队夺得亚洲体操锦标赛女子团体和个人全能冠军", "link": "https://www.chinanews.com.cn/ty/2026/06-26/10647471.shtml", "time": "Fri, 26 Jun 2026 00:22:47 +0800"}, {"title": "（美加墨世界杯）韩国不敌南非跌至小组第三 出线前景待定", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647427.shtml", "time": "Thu, 25 Jun 2026 21:53:15 +0800"}, {"title": "甘肃第十一届少数民族传统体育运动会七月开赛 参赛规模创历届之最", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647381.shtml", "time": "Thu, 25 Jun 2026 21:14:27 +0800"}, {"title": "孙兴慜替补难救主，韩国队缘何陷入出线危局？", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647376.shtml", "time": "Thu, 25 Jun 2026 21:05:31 +0800"}, {"title": "世界大学生自行车锦标赛崇礼开赛  中国选手摘金", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647315.shtml", "time": "Thu, 25 Jun 2026 20:24:04 +0800"}, {"title": "中国足协：《足球竞赛规则2026/2027》将于7月1日生效", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647305.shtml", "time": "Thu, 25 Jun 2026 19:42:25 +0800"}, {"title": "2026年“民体杯”全国民族式摔跤比赛在内蒙古开赛", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647262.shtml", "time": "Thu, 25 Jun 2026 18:46:43 +0800"}, {"title": "世界杯32强已产生13席 日本队主帅称目标小组第一", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647062.shtml", "time": "Thu, 25 Jun 2026 14:53:25 +0800"}, {"title": "首届广东“技超”联赛总决赛闭幕 推动技工教育协同发展", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647031.shtml", "time": "Thu, 25 Jun 2026 14:36:54 +0800"}, {"title": "（美加墨世界杯）南非爆冷胜韩国 携手墨西哥晋级淘汰赛", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647023.shtml", "time": "Thu, 25 Jun 2026 14:17:53 +0800"}, {"title": "中国乒协公示亚运会参赛名单 王楚钦、孙颖莎身兼三项", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647021.shtml", "time": "Thu, 25 Jun 2026 14:03:06 +0800"}, {"title": "斯诺克冠军联赛：中国球手张安达突围成功晋级32强", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10647004.shtml", "time": "Thu, 25 Jun 2026 13:45:18 +0800"}, {"title": "（美加墨世界杯）维尼修斯“双响”助巴西头名晋级 摩洛哥4：2胜海地", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10646948.shtml", "time": "Thu, 25 Jun 2026 11:59:42 +0800"}, {"title": "欧文兑现与贵州“村超”的三年之约", "link": "https://www.chinanews.com.cn/ty/2026/06-25/10646906.shtml", "time": "Thu, 25 Jun 2026 11:29:30 +0800"}];
+        const WC_MATCHES = [{"date": "06-26", "home": "Paraguay", "away": "Australia", "score": "VS", "time": "02:00", "status": "进行中"}, {"date": "06-26", "home": "Norway", "away": "France", "score": "VS", "time": "19:00", "status": "进行中"}, {"date": "06-25", "home": "South Africa", "away": "South Korea", "score": "VS", "time": "01:00", "status": "进行中"}, {"date": "06-25", "home": "Curaçao", "away": "Ivory Coast", "score": "VS", "time": "20:00", "status": "进行中"}, {"date": "06-25", "home": "Ecuador", "away": "Germany", "score": "VS", "time": "20:00", "status": "进行中"}, {"date": "06-24", "home": "Morocco", "away": "Haiti", "score": "VS", "time": "22:00", "status": "进行中"}, {"date": "06-24", "home": "Scotland", "away": "Brazil", "score": "VS", "time": "22:00", "status": "进行中"}, {"date": "06-24", "home": "Switzerland", "away": "Canada", "score": "VS", "time": "19:00", "status": "进行中"}];
 
         const WI = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"❄️",80:"🌧️",81:"🌧️",82:"🌧️",95:"⛈️",96:"⛈️",99:"⛈️"};
         const WD = {0:"晴",1:"大部晴",2:"多云",3:"阴天",45:"雾",51:"小毛毛雨",53:"毛毛雨",55:"大毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",80:"小阵雨",81:"中阵雨",82:"大阵雨",95:"雷暴",96:"雷暴冰雹",99:"强雷暴冰雹"};
+        const FLAGS = {"Brazil":"🇧🇷","Argentina":"🇦🇷","France":"🇫🇷","Germany":"🇩🇪","Spain":"🇪🇸","England":"🇬🇧","Italy":"🇮🇹","Portugal":"🇵🇹","Netherlands":"🇳🇱","Belgium":"🇧🇪","Croatia":"🇭🇷","Morocco":"🇲🇦","Japan":"🇯🇵","South Korea":"🇰🇷","Australia":"🇦🇺","Mexico":"🇲🇽","USA":"🇺🇸","Canada":"🇨🇦","Switzerland":"🇨🇭","Poland":"🇵🇱","Senegal":"🇸🇳","Ecuador":"🇪🇨","Wales":"🏴󠁧󠁢󠁷󠁬󠁳󠁿","Tunisia":"🇹🇳","Cameroon":"🇨🇲","Serbia":"🇷🇸","Ghana":"🇬🇭","Uruguay":"🇺🇾","Qatar":"🇶🇦","Saudi Arabia":"🇸🇦","Iran":"🇮🇷","Costa Rica":"🇨🇷","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Norway":"🇳🇴","Paraguay":"🇵🇾","Haiti":"🇭🇹","Curaçao":"🇨🇼","Ivory Coast":"🇨🇮","South Africa":"🇿🇦","China":"🇨🇳","India":"🇮🇳","Russia":"🇷🇺","Turkey":"🇹🇷","Czech Republic":"🇨🇿","Austria":"🇦🇹","Sweden":"🇸🇪","Denmark":"🇩🇰","Ukraine":"🇺🇦","Greece":"🇬🇷","Chile":"🇨🇱","Colombia":"🇨🇴","Peru":"🇵🇪","Nigeria":"🇳🇬","Algeria":"🇩🇿","Egypt":"🇪🇬","Iraq":"🇮🇶","United Arab Emirates":"🇦🇪","Jamaica":"🇯🇲","Panama":"🇵🇦","Honduras":"🇭🇳","Trinidad and Tobago":"🇹🇹","New Zealand":"🇳🇿","South Sudan":"🇸🇸","Guinea-Bissau":"🇬🇼","Equatorial Guinea":"🇬🇶","Eswatini":"🇸🇿","São Tomé and Príncipe":"🇸🇹","Cape Verde":"🇨🇻","Comoros":"🇰🇲","Djibouti":"🇩🇯","Lesotho":"🇱🇸","Suriname":"🇸🇷","Bermuda":"🇧🇲","Puerto Rico":"🇵🇷","Cuba":"🇨🇺","Honduras":"🇭🇳","Nicaragua":"🇳🇮","El Salvador":"🇸🇻","Guatemala":"🇬🇹","Belize":"🇧🇿","Dominican Republic":"🇩🇴","Haiti":"🇭🇹","Grenada":"🇬🇩","Saint Lucia":"🇱🇨","Saint Vincent and the Grenadines":"🇻🇨","Barbados":"🇧🇧","Antigua and Barbuda":"🇦🇬","Dominica":"🇩🇲","Saint Kitts and Nevis":"🇰🇳","Guyana":"🇬🇾","Bolivia":"🇧🇴","Venezuela":"🇻🇪","Paraguay":"🇵🇾","Myanmar":"🇲🇲","Philippines":"🇵🇭","Thailand":"🇹🇭","Vietnam":"🇻🇳","Indonesia":"🇮🇩","Malaysia":"🇲🇾","Singapore":"🇸🇬","Cambodia":"🇰🇭","Laos":"🇱🇦","Brunei":"🇧🇳","Timor-Leste":"🇹🇱","Bangladesh":"🇧🇩","Sri Lanka":"🇱🇰","Nepal":"🇳🇵","Bhutan":"🇧🇹","Maldives":"🇲🇻","Pakistan":"🇵🇰","Afghanistan":"🇦🇫","Turkmenistan":"🇹🇲","Uzbekistan":"🇺🇿","Kazakhstan":"🇰🇿","Kyrgyzstan":"🇰🇬","Tajikistan":"🇹🇯","Azerbaijan":"🇦🇿","Georgia":"🇬🇪","Armenia":"🇦🇲","Mongolia":"🇲🇳","North Korea":"🇰🇵","Hong Kong":"🇭🇰","Chinese Taipei":"🇹🇼","Palestine":"🇵🇸","Lebanon":"🇱🇧","Jordan":"🇯🇴","Syria":"🇸🇾","Yemen":"🇾🇪","Oman":"🇴🇲","Bahrain":"🇧🇭","Kuwait":"🇰🇼","Qatar":"🇶🇦","Saudi Arabia":"🇸🇦","United Arab Emirates":"🇦🇪","Sudan":"🇸🇩","South Sudan":"🇸🇸","Ethiopia":"🇪🇹","Somalia":"🇸🇴","Kenya":"🇰🇪","Uganda":"🇺🇬","Tanzania":"🇹🇿","Rwanda":"🇷🇼","Burundi":"🇧🇮","DR Congo":"🇨🇩","Congo":"🇨🇬","Gabon":"🇬🇦","Equatorial Guinea":"🇬🇶","Cameroon":"🇨🇲","Central African Republic":"🇨🇫","Chad":"🇹🇩","Niger":"🇳🇪","Mali":"🇲🇱","Burkina Faso":"🇧🇫","Guinea":"🇬🇳","Guinea-Bissau":"🇬🇼","Sierra Leone":"🇸🇱","Liberia":"🇱🇷","Ivory Coast":"🇨🇮","Ghana":"🇬🇭","Togo":"🇹🇬","Benin":"🇧🇯","Nigeria":"🇳🇬","Senegal":"🇸🇳","Gambia":"🇬🇲","Cape Verde":"🇨🇻","Mauritania":"🇲🇷","Mali":"🇲🇱","Namibia":"🇳🇦","Botswana":"🇧🇼","Zimbabwe":"ZW","Zambia":"🇿🇲","Malawi":"🇲🇼","Mozambique":"🇲🇿","Madagascar":"🇲🇬","Mauritius":"🇲🇺","Seychelles":"🇸🇨","Comoros":"🇰🇲","Lesotho":"🇱🇸","Eswatini":"🇸🇿","South Africa":"🇿🇦","Rwanda":"🇷🇼","Burundi":"🇧🇮","Uganda":"🇺🇬","Kenya":"🇰🇪","Ethiopia":"🇪🇹","Sudan":"🇸🇩","Egypt":"🇪🇬","Libya":"🇱🇾","Tunisia":"🇹🇳","Algeria":"🇩🇿","Morocco":"🇲🇦"};
         const wDirs=["北","东北","东","东南","南","西南","西","西北"];
         function gDir(d){ return wDirs[Math.round(d/45)%8]+"风"; }
         function gWL(s){ if(s<6)return"软风";if(s<12)return"轻风";if(s<20)return"微风";if(s<29)return"和风";return"清风"; }
         function gUV(u){ if(u<=2)return["弱","#27ae60"];if(u<=5)return["中","#f39c12"];return["强","#e67e22"]; }
         function gUmb(p,c){ const r=[51,53,55,61,63,65,80,81,82,95,96,99];if(r.includes(c)||p>50)return["☂️","#e74c3c"];if(p>30)return["🌂","#f39c12"];return["☔","#27ae60"]; }
         function gClo(t,r){ if(r)return"🌂带雨具";if(t>30)return"👕轻薄";if(t>25)return"👔短袖";if(t>20)return"🧥薄外套";return"🧥厚外套"; }
+        function getFlag(name){ return FLAGS[name.trim()]||"🏳️"; }
 
         function renderNews(el, list) {
-            if(!list.length) { el.innerHTML='<div style="padding:20px;text-align:center;color:#999;font-size:13px">暂无新闻</div>'; return; }
+            if(!list.length) { el.innerHTML='<div style="padding:16px;text-align:center;color:#999;font-size:12px">暂无新闻</div>'; return; }
             el.innerHTML = list.map((n,i) => {
                 let t = '';
                 if(n.time) { try { const d=new Date(n.time); if(!isNaN(d)) t=`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; } catch(e){} }
@@ -300,9 +320,22 @@
             if(!matches.length) { el.innerHTML='<div style="padding:20px;text-align:center;color:#999;font-size:13px">暂无比赛数据</div>'; return; }
             el.innerHTML = matches.map((m,i) => `
                 <div class="wc-match" style="animation:fadeIn 0.3s ease ${i*0.05}s both">
-                    <div class="wc-date">${m.date} ${m.time}</div>
-                    <div class="wc-teams">${m.home} vs ${m.away}</div>
-                    <div class="wc-score">${m.score}</div>
+                    <div class="wc-match-top">
+                        <div class="wc-match-date">📅 ${m.date}</div>
+                        <div class="wc-match-status ${m.score==='VS'?'live':'done'}">${m.score==='VS'?'待赛':'已结束'}</div>
+                    </div>
+                    <div class="wc-match-teams">
+                        <div class="wc-team">
+                            <div class="wc-team-flag">${getFlag(m.home)}</div>
+                            <div class="wc-team-name">${m.home}</div>
+                        </div>
+                        <div class="wc-match-score">${m.score}</div>
+                        <div class="wc-team">
+                            <div class="wc-team-flag">${getFlag(m.away)}</div>
+                            <div class="wc-team-name">${m.away}</div>
+                        </div>
+                    </div>
+                    <div class="wc-match-time">⏰ ${m.time}</div>
                 </div>
             `).join('');
         }
@@ -310,17 +343,16 @@
 
         async function loadWeather(city) {
             const el = document.getElementById('weatherContent');
-            el.innerHTML = '<div style="text-align:center;padding:20px"><div class="spinner"></div><div style="color:#999;font-size:13px">加载中...</div></div>';
+            el.innerHTML = '<div style="text-align:center;padding:16px"><div class="spinner"></div><div style="color:#999;font-size:12px">加载中...</div></div>';
             try {
                 const g = await (await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=zh`)).json();
-                if(!g.results||!g.results.length) { el.innerHTML='<div style="padding:20px;text-align:center;color:#e74c3c;font-size:13px">未找到城市</div>'; return; }
+                if(!g.results||!g.results.length) { el.innerHTML='<div style="padding:16px;text-align:center;color:#e74c3c;font-size:12px">未找到城市</div>'; return; }
                 const geo=g.results[0];
                 const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geo.latitude}&longitude=${geo.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,uv_index&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&timezone=auto&forecast_days=7`)).json();
                 const c=w.current, code=c.weather_code, icon=WI[code]||"🌤️", desc=WD[code]||"未知";
                 const rc=[51,53,55,61,63,65,80,81,82,95,96,99];
                 const uv=gUV(c.uv_index), umb=gUmb(0,code), cloth=gClo(c.temperature_2m,rc.includes(code));
                 const wk=["日","一","二","三","四","五","六"];
-
                 let forecastHTML='';
                 for(let i=0;i<7;i++){
                     const d=new Date(w.daily.time[i]);
@@ -331,7 +363,6 @@
                         <div class="day-temp">${w.daily.temperature_2m_min[i]}~${w.daily.temperature_2m_max[i]}°</div>
                     </div>`;
                 }
-
                 el.innerHTML=`
                     <div class="wc-city">📍 ${geo.name}</div>
                     <div class="wc-main">
@@ -352,7 +383,7 @@
                         <div class="forecast-title">📅 未来7天</div>
                         <div class="forecast-grid">${forecastHTML}</div>
                     </div>`;
-            } catch(e) { el.innerHTML=`<div style="padding:20px;text-align:center;color:#e74c3c;font-size:13px">获取失败</div>`; }
+            } catch(e) { el.innerHTML=`<div style="padding:16px;text-align:center;color:#e74c3c;font-size:12px">获取失败</div>`; }
         }
 
         function searchCity() {
