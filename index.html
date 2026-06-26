@@ -724,7 +724,7 @@
                     const resp = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
                     const data = await resp.json();
                     if (data.status === 'ok' && data.items && data.items.length > 0) {
-                        return data.items.slice(0, 20).map(item => ({
+                        return data.items.slice(0, 25).map(item => ({
                             title: item.title,
                             link: item.link,
                             time: item.pubDate
@@ -734,54 +734,13 @@
                 return [];
             }
 
-            async function fetchRSSDirect(url) {
-                try {
-                    const resp = await fetch(url);
-                    const text = await resp.text();
-                    const parser = new DOMParser();
-                    const xml = parser.parseFromString(text, 'text/xml');
-                    const items = xml.querySelectorAll('item, entry');
-                    const results = [];
-                    items.forEach((item, i) => {
-                        if (i >= 20) return;
-                        const title = item.querySelector('title')?.textContent || '';
-                        const link = item.querySelector('link')?.textContent || item.querySelector('link')?.getAttribute('href') || '';
-                        const pubDate = item.querySelector('pubDate, published, updated')?.textContent || '';
-                        if (title) results.push({ title: title.trim(), link, time: pubDate });
-                    });
-                    return results;
-                } catch(e) { console.log('direct fetch failed:', url, e); return []; }
-            }
-
-            async function fetchAllFeeds(feeds) {
-                let allNews = [];
-                for (const feed of feeds) {
-                    let items = await fetchRSS(feed);
-                    if (items.length === 0) {
-                        items = await fetchRSSDirect(feed);
-                    }
-                    allNews = allNews.concat(items);
-                }
-                const seen = new Set();
-                return allNews.filter(n => {
-                    const key = n.title.substring(0, 20);
-                    if (seen.has(key)) return false;
-                    seen.add(key);
-                    return true;
-                }).slice(0, 20);
-            }
-
             const cnFeeds = [
-                'https://rsshub.app/zaobao/realtime/china',
-                'https://rsshub.app/thepaper/featured',
-                'https://rsshub.app/sina/rollnews',
-                'https://rsshub.app/toutiao/today'
+                'https://www.chinanews.com.cn/rss/scroll-news.xml',
+                'https://rss.cnn.com/rss/edition_asia.rss'
             ];
             const worldFeeds = [
-                'https://rsshub.app/bbc/zhongwen',
-                'https://rsshub.app/reuters/world',
-                'https://rsshub.app/nyt/world',
-                'https://rsshub.app/apnews/topics/world-news'
+                'https://feeds.bbci.co.uk/news/world/rss.xml',
+                'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
             ];
 
             function renderNews(container, newsList) {
@@ -815,6 +774,21 @@
                 fetchAllFeeds(cnFeeds),
                 fetchAllFeeds(worldFeeds)
             ]);
+
+            async function fetchAllFeeds(feeds) {
+                let allNews = [];
+                for (const feed of feeds) {
+                    const items = await fetchRSS(feed);
+                    allNews = allNews.concat(items);
+                }
+                const seen = new Set();
+                return allNews.filter(n => {
+                    const key = n.title.substring(0, 20);
+                    if (seen.has(key)) return false;
+                    seen.add(key);
+                    return true;
+                }).slice(0, 20);
+            }
 
             renderNews(cnNewsEl, cnNews);
             renderNews(worldNewsEl, worldNews);
