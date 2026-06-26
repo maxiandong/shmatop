@@ -17,7 +17,7 @@
         .container { max-width: 1400px; margin: 0 auto; }
         .layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
 
-        .news-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .col { display: flex; flex-direction: column; gap: 20px; }
         .news-panel {
             background: white;
             border-radius: 16px;
@@ -26,31 +26,62 @@
             border: 1px solid rgba(66,133,244,0.08);
         }
         .news-header {
-            padding: 14px 18px;
+            padding: 12px 16px;
             background: linear-gradient(135deg, #4285F4, #34A853);
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .news-list { padding: 6px 0; max-height: calc(100vh - 120px); overflow-y: auto; }
+        .news-header.football { background: linear-gradient(135deg, #1a73e8, #4285F4); }
+        .news-header.basketball { background: linear-gradient(135deg, #ea4335, #fbbc05); }
+        .news-list { padding: 4px 0; max-height: 280px; overflow-y: auto; }
         .news-item {
-            padding: 10px 16px;
+            padding: 8px 14px;
             border-bottom: 1px solid #f1f3f4;
             transition: all 0.2s ease;
             cursor: pointer;
         }
-        .news-item:hover { background: #f8f9fa; padding-left: 20px; }
+        .news-item:hover { background: #f8f9fa; padding-left: 18px; }
         .news-item:last-child { border-bottom: none; }
-        .news-item-title { font-size: 14px; font-weight: 500; color: #202124; line-height: 1.6; }
-        .news-item-time { font-size: 11px; color: #999; margin-top: 3px; }
-        .news-list::-webkit-scrollbar { width: 5px; }
+        .news-item-title { font-size: 13px; font-weight: 500; color: #202124; line-height: 1.5; }
+        .news-item-time { font-size: 11px; color: #999; margin-top: 2px; }
+        .news-list::-webkit-scrollbar { width: 4px; }
         .news-list::-webkit-scrollbar-track { background: transparent; }
-        .news-list::-webkit-scrollbar-thumb { background: #dadce0; border-radius: 3px; }
+        .news-list::-webkit-scrollbar-thumb { background: #dadce0; border-radius: 2px; }
 
-        .sports-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .wc-section {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+            border: 1px solid rgba(66,133,244,0.08);
+            margin-top: 20px;
+        }
+        .wc-header {
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #1a73e8, #ea4335);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .wc-matches { padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+        .wc-match {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+        .wc-match:hover { background: #e8f0fe; transform: translateY(-1px); }
+        .wc-teams { font-weight: 600; color: #202124; }
+        .wc-score { color: #1a73e8; font-weight: 700; font-size: 14px; }
+        .wc-date { color: #999; font-size: 11px; }
 
         .right-panel { display: flex; flex-direction: column; gap: 16px; }
         .datetime-card {
@@ -149,7 +180,7 @@
         }
         .day-card:hover { transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .day-date { font-size: 10px; color: #999; }
-        .day-icon { font-size: 24px; margin: 4px 0; }
+        .day-icon { font-size: 28px; margin: 4px 0; }
         .day-temp { font-size: 12px; font-weight: 700; color: #202124; }
 
         .spinner { width: 28px; height: 28px; border: 3px solid #e0e0e0; border-top-color: #4285F4; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 8px; }
@@ -160,41 +191,45 @@
             .layout { grid-template-columns: 1fr; }
             .right-panel { flex-direction: row; flex-wrap: wrap; }
             .right-panel > * { flex: 1; min-width: 280px; }
-            .news-list { max-height: 400px; }
+            .news-list { max-height: 250px; }
         }
         @media (max-width: 700px) {
-            .news-section { grid-template-columns: 1fr; }
-            .sports-section { grid-template-columns: 1fr; }
+            .col { gap: 16px; }
             .right-panel { flex-direction: column; }
             .right-panel > * { min-width: auto; }
             .wc-icon { font-size: 72px; }
             .wc-temp { font-size: 44px; }
-            .wc-main { gap: 12px; }
-            .day-icon { font-size: 28px; }
+            .wc-matches { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="layout">
-            <div class="news-section">
-                <div class="news-panel">
-                    <div class="news-header">🇨🇳 国内新闻</div>
-                    <div class="news-list" id="cnNews"></div>
+            <div>
+                <div class="col">
+                    <div class="news-panel">
+                        <div class="news-header">🇨🇳 国内新闻</div>
+                        <div class="news-list" id="cnNews"></div>
+                    </div>
+                    <div class="news-panel">
+                        <div class="news-header football">⚽ 足球新闻</div>
+                        <div class="news-list" id="footballNews"></div>
+                    </div>
                 </div>
-                <div class="news-panel">
-                    <div class="news-header">🌍 国际新闻</div>
-                    <div class="news-list" id="worldNews"></div>
+                <div class="col" style="margin-top:20px">
+                    <div class="news-panel">
+                        <div class="news-header">🌍 国际新闻</div>
+                        <div class="news-list" id="worldNews"></div>
+                    </div>
+                    <div class="news-panel">
+                        <div class="news-header basketball">🏀 篮球新闻</div>
+                        <div class="news-list" id="basketballNews"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="sports-section">
-                <div class="news-panel">
-                    <div class="news-header" style="background:linear-gradient(135deg, #1a73e8, #4285F4)">⚽ 足球新闻</div>
-                    <div class="news-list" id="footballNews"></div>
-                </div>
-                <div class="news-panel">
-                    <div class="news-header" style="background:linear-gradient(135deg, #ea4335, #fbbc05)">🏀 篮球新闻</div>
-                    <div class="news-list" id="basketballNews"></div>
+                <div class="wc-section">
+                    <div class="wc-header">🏆 FIFA 世界杯近三天赛况</div>
+                    <div class="wc-matches" id="wcMatches"></div>
                 </div>
             </div>
             <div class="right-panel">
@@ -233,6 +268,7 @@
         const WORLD_NEWS = [{"title": "Rescuers search rubble for survivors as Venezuela earthquakes kill at least 235", "link": "https://www.bbc.co.uk/news/articles/cjegdqw5d3yo?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 03:24:12 GMT"}, {"title": "Earthquake is devastating blow to Venezuela at time of uncertainty", "link": "https://www.bbc.co.uk/news/articles/c3vynpw7rk4o?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 02:12:07 GMT"}, {"title": "People flee as building collapses on Caracas outskirts", "link": "https://www.bbc.co.uk/news/videos/c78y1e3606vo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 12:08:30 GMT"}, {"title": "Paris restricts alcohol consumption and sales as Europe's heatwave shifts east", "link": "https://www.bbc.co.uk/news/articles/cwy0pdq89zno?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 00:06:45 GMT"}, {"title": "UN pauses Strait of Hormuz evacuation plan after cargo ship attacked", "link": "https://www.bbc.co.uk/news/articles/cjwg9np904qo?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 00:28:02 GMT"}, {"title": "Women alleging rape and sexual assault in France call to abolish statute of limitations", "link": "https://www.bbc.co.uk/news/articles/ckg7z5dvxnzo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 18:50:12 GMT"}, {"title": "Supreme Court allows Trump to end protected status for Haitian and Syrian immigrants", "link": "https://www.bbc.co.uk/news/articles/c4g8ym422lko?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 02:18:04 GMT"}, {"title": "Trump asks Congress for billions for Iran war, after tension with Republicans", "link": "https://www.bbc.co.uk/news/articles/c1eydwldzdjo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 09:06:59 GMT"}, {"title": "Families lay flowers on barbed wire barricade on anniversary of deadly Kenya protests", "link": "https://www.bbc.co.uk/news/articles/cgqjl8kj8wpo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 16:53:51 GMT"}, {"title": "Ryanair says it will reluctantly not charge parents to sit next to children", "link": "https://www.bbc.co.uk/news/articles/cdr4zy4e1n1o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 12:08:33 GMT"}, {"title": "Oil price falls back to pre-Iran war levels", "link": "https://www.bbc.co.uk/news/articles/c0jy7d7wzv4o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 15:32:04 GMT"}, {"title": "Key figure in South Africa police corruption scandal pleads guilty", "link": "https://www.bbc.co.uk/news/articles/cx2j4g5k52jo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 14:00:13 GMT"}, {"title": "IBM hails new 'block of flats' design breakthrough for ultra tiny chips", "link": "https://www.bbc.co.uk/news/articles/cvg7vpyn5pxo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 10:04:43 GMT"}, {"title": "Philippines bans video game played by alleged high school shooter", "link": "https://www.bbc.co.uk/news/articles/c14y7738nm8o?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 22:14:12 GMT"}, {"title": "Anthropic accuses Chinese rival Alibaba of illicitly extracting AI capabilities", "link": "https://www.bbc.co.uk/news/articles/cwyklykn5dwo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 03:12:17 GMT"}, {"title": "Independent MPs launch new Australian centrist party", "link": "https://www.bbc.co.uk/news/articles/ckg76mgz0m1o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 02:41:28 GMT"}, {"title": "Clean sweep for Mamdani-backed candidates in New York's Democratic primary", "link": "https://www.bbc.co.uk/news/articles/clye652m41po?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 13:03:35 GMT"}, {"title": "Air conditioning creates political divide after France records hottest day", "link": "https://www.bbc.co.uk/news/articles/c4gyqldl3p5o?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 13:51:24 GMT"}, {"title": "Biggest city in Crimea without power after Ukraine strikes", "link": "https://www.bbc.co.uk/news/articles/c3ryv72pjqno?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 09:48:24 GMT"}, {"title": "UN nuclear chief says inspectors will visit Iran sites as part of war deal", "link": "https://www.bbc.co.uk/news/articles/cpd395zv81vo?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 17:31:48 GMT"}];
         const FOOTBALL_NEWS = [{"title": "Türkiye scores goal late in stoppage time to defea...", "link": "https://www.espn.com/soccer/story/_/id/49155701/world-cup-live-updates-turkiye-vs-united-states", "time": "Fri, 26 Jun 2026 00:11:56 EST"}, {"title": "Pulisic subs on as Türkiye beats U.S. on last kick...", "link": "https://www.espn.com/soccer/story/_/id/49179213/christian-pulisic-subs-us-loses-turkiye-last-kick", "time": "Fri, 26 Jun 2026 00:18:14 EST"}, {"title": "Sources: Anderson joins City on club record deal", "link": "https://www.espn.com/soccer/story/_/id/49179426/elliot-anderson-man-city-transfer-agreed-nottingham-forest-england", "time": "Fri, 26 Jun 2026 00:14:54 EST"}, {"title": "USMNT to face Bosnia in World Cup round of 32", "link": "https://www.espn.com/soccer/story/_/id/49181937/usa-bosnia-herzegovina-world-cup-round-32-knockout", "time": "Fri, 26 Jun 2026 00:18:14 EST"}, {"title": "Japan book Brazil WC clash; Sweden also advance", "link": "https://www.espn.com/soccer/story/_/id/49181192/japan-brazil-2026-world-cup-round-32-sweden-knockout", "time": "Fri, 26 Jun 2026 00:18:14 EST"}, {"title": "Ecuador shock Germany, seal spot in WC knockouts", "link": "https://www.espn.com/soccer/story/_/id/49179704/ecuador-germany-fifa-world-cup-2026-knockout-stage-group-e", "time": "Fri, 26 Jun 2026 00:18:14 EST"}, {"title": "Faé fires back at Schweinsteiger's 'racist' remark...", "link": "https://www.espn.com/soccer/story/_/id/49181018/ivory-coast-coach-slams-schweinsteiger-racist-african-football-comments", "time": "Fri, 26 Jun 2026 00:18:14 EST"}, {"title": "Sources: Man Utd near new loan deal for Onana", "link": "https://www.espn.com/soccer/story/_/id/49177076/man-united-new-loan-deal-trabzonspor-andre-onana-sources", "time": "Fri, 26 Jun 2026 00:14:54 EST"}, {"title": "Sources: Putellas reaches deal with Lionesses", "link": "https://www.espn.com/soccer/story/_/id/49176078/alexia-putellas-reaches-agreement-london-city-lionesses-sources", "time": "Fri, 26 Jun 2026 00:14:54 EST"}, {"title": "🤔 Permutations: How teams qualify for knockouts", "link": "https://www.espn.com/soccer/story/_/id/49031236/2026-world-cup-group-stage-clinching-scenarios-knockout-rounds-elimination", "time": "Fri, 26 Jun 2026 00:14:55 EST"}, {"title": "World Cup Daily live: Group F finale sees Netherla...", "link": "https://www.espn.com/soccer/story/_/id/49172255/world-cup-daily-live-neymar-inspired-lewis-hamilton-brazil-return-usmnt-action", "time": "Fri, 26 Jun 2026 00:18:43 EST"}, {"title": "Backs against the wall, Ecuador conjure World Cup ...", "link": "https://www.espn.com/soccer/story/_/id/49180798/ecuador-conjure-world-cup-magic-upset-germany", "time": "Thu, 25 Jun 2026 22:21:05 EST"}, {"title": "If Japan are dreaming of winning the World Cup, Br...", "link": "https://www.espn.com/soccer/story/_/id/49181978/if-japan-dreaming-world-cup-brazil-test-key", "time": "Thu, 25 Jun 2026 22:21:05 EST"}, {"title": "FIFA president clocks up 24,000 miles on epic Worl...", "link": "https://www.espn.com/soccer/story/_/id/49116383/infantino-fifa-presidents-epic-world-cup-tour", "time": "Thu, 25 Jun 2026 16:13:26 EST"}, {"title": "The story of Christian Pulisic, U.S. stars, a trip...", "link": "https://www.espn.com/soccer/story/_/id/49171253/christian-pulisic-weston-mckennie-zendejas-pizza-usmnt-world-cup-golf-carts", "time": "Thu, 25 Jun 2026 17:14:39 EST"}, {"title": "World Cup Power Rankings after two games: Who is N...", "link": "https://www.espn.com/soccer/story/_/id/49154319/fifa-world-cup-power-rankings-spain-brazil-germany-usa-mexico-england-argentina-france", "time": "Thu, 25 Jun 2026 09:48:38 EST"}, {"title": "Copy of Why every round-of-32 team will, won't win the Wor...", "link": "https://www.espn.com/soccer/story/_/id/49118437/fifa-world-cup-predictions-analysis-projections-usa-mexico-spain-brazil-england-argentina-germany-france", "time": "Thu, 25 Jun 2026 09:48:38 EST"}, {"title": "Tartan Army's Time Out: How Scotland got stuck in ...", "link": "https://www.espn.com/soccer/story/_/id/49179003/scotland-tartan-army-world-cup-steve-clarke-third-place-limbo-tom-hamilton", "time": "Thu, 25 Jun 2026 18:53:07 EST"}, {"title": "Transfer rumors, news: Man United want Scotland 'k...", "link": "https://www.espn.com/soccer/story/_/id/49173065/transfer-rumors-news-manchester-united-want-scotland-goalkeeper-gunn", "time": "Thu, 25 Jun 2026 17:15:53 EST"}, {"title": "Aguirre's pragmatic Mexico has its doubters, but i...", "link": "https://www.espn.com/soccer/story/_/id/49172297/aguirres-pragmatic-mexico-doubters-built-world-cup-success", "time": "Thu, 25 Jun 2026 05:45:15 EST"}];
         const BASKETBALL_NEWS = [{"title": "LaMelo Ball traded to Minnesota! Which team gets a...", "link": "https://www.espn.com/nba/story/_/id/49135150/2026-nba-offseason-trade-grades-contracts-new-deals-rosters-teams", "time": "Thu, 25 Jun 2026 13:14:16 EST"}, {"title": "Clippers draftee Ngoy opts for Auburn next season", "link": "https://www.espn.com/mens-college-basketball/story/_/id/49180679/clippers-draft-pick-ngoy-plans-play-auburn-season", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Sources: Williams back to Suns for 3 years, $38M", "link": "https://www.espn.com/nba/story/_/id/49180880/sources-mark-williams-return-suns-3-year-38m-deal", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Copy of Sources: Hornets' Ball to Wolves for Reid, picks", "link": "https://www.espn.com/nba/story/_/id/49175343/hornets-trade-ball-timberwolves-reid-picks", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Blazers' Nori ready to lead after waiting for shot...", "link": "https://www.espn.com/nba/story/_/id/49180510/micah-nori-get-discouraged-waiting-hc-chance", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Wizards' Dybantsa unveils No. 4 jersey in D.C.", "link": "https://www.espn.com/nba/story/_/id/49179050/aj-dybantsa-unveils-no-4-jersey-wizards-arrival-dc", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "'Grateful' Horford continues career with Warriors", "link": "https://www.espn.com/nba/story/_/id/49175178/al-horford-says-returning-warriors-play-20th-season", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "White plans to re-sign with Hornets, sources say", "link": "https://www.espn.com/nba/story/_/id/49176539/sources-coby-white-re-sign-hornets-3-year-74m-deal", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Sources: Celtics still actively talking Brown trad...", "link": "https://www.espn.com/nba/story/_/id/49173956/sources-celtics-remain-active-talks-trade-jaylen-brown", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "⭐ Dybansta, Boozer top NBA draft superlatives", "link": "https://www.espn.com/nba/story/_/id/49169047/nba-2026-draft-superlatives-aj-dybansta-cameron-boozer", "time": "Thu, 25 Jun 2026 20:21:56 EST"}, {"title": "Draft grades for all 30 NBA teams: Why the Grizzli...", "link": "https://www.espn.com/nba/story/_/id/49147426/2026-nba-draft-grades-winners-losers-sleepers-best-picks-value-reaches-all-30-teams-classes", "time": "Thu, 25 Jun 2026 15:55:46 EST"}, {"title": "College coaches on top draft picks: Dybantsa vs. P...", "link": "https://www.espn.com/mens-college-basketball/story/_/id/49167037/coaches-confidential-2026-nba-draft-picks-dybantsa-peterson-point-guards-sleepers", "time": "Thu, 25 Jun 2026 15:55:46 EST"}, {"title": "Debut 2027 NBA mock draft: Stokes, Mullins and top prospects to watch", "link": "https://www.espn.com/nba/story/_/id/49101766/2027-nba-mock-draft-no-1-pick-options-top-players-race-picks", "time": "Thu, 25 Jun 2026 19:05:37 EST"}, {"title": "Biggest winners -- and question marks -- from Roun...", "link": "https://www.espn.com/nba/story/_/id/49085674/2026-nba-draft-round-1-winners-surprises-teams-picks-questions-washington-jazz-memphis", "time": "Wed, 24 Jun 2026 20:12:20 EST"}, {"title": "Grades for both sides of the Giannis trade: Winner...", "link": "https://www.espn.com/nba/story/_/id/49112635/giannis-antetokounmpo-trade-grades-winners-losers-reaction-bucks-heat", "time": "Wed, 24 Jun 2026 15:27:23 EST"}, {"title": "Giannis traded to Heat: Everything we know about t...", "link": "https://www.espn.com/nba/story/_/id/49144931/giannis-traded-heat-faq-blockbuster-move-means-bucks-celtics-draft-playoff-race", "time": "Wed, 24 Jun 2026 15:27:23 EST"}, {"title": "Latest NBA buzz: Everything we're hearing ahead of...", "link": "https://www.espn.com/nba/story/_/id/48377855/2026-nba-buzz-latest-live-updates-news-intel-nba-draft-offseason", "time": "Wed, 24 Jun 2026 23:36:52 EST"}, {"title": "Grades for every NBA free agent signing: Suns, Haw...", "link": "https://www.espn.com/nba/story/_/id/48957095/2026-nba-free-agency-grades-offseason-signings-deals-contracts-extensions-depth-charts", "time": "Thu, 25 Jun 2026 15:41:00 EST"}, {"title": "NBA trade tracker: Thunder send Aaron Wiggins to H...", "link": "https://www.espn.com/nba/story/_/id/48957844/nba-trade-tracker-details-every-deal-2026-offseason-draft-free-agency", "time": "Thu, 25 Jun 2026 15:41:00 EST"}, {"title": "Copy of Stephen Curry responds to Yaxel Lendeborg's 'used ...", "link": "https://www.espn.com/nba/story/_/id/49176705/stephen-curry-yaxel-lendeborg-golden-state-warriors-joke", "time": "Thu, 25 Jun 2026 14:21:28 EST"}];
+        const WC_MATCHES = [{"date": "06-26", "home": "Paraguay", "away": "Australia", "score": "VS", "time": "02:00"}, {"date": "06-26", "home": "Norway", "away": "France", "score": "VS", "time": "19:00"}, {"date": "06-25", "home": "South Africa", "away": "South Korea", "score": "VS", "time": "01:00"}, {"date": "06-25", "home": "Curaçao", "away": "Ivory Coast", "score": "VS", "time": "20:00"}, {"date": "06-25", "home": "Ecuador", "away": "Germany", "score": "VS", "time": "20:00"}, {"date": "06-24", "home": "Morocco", "away": "Haiti", "score": "VS", "time": "22:00"}, {"date": "06-24", "home": "Scotland", "away": "Brazil", "score": "VS", "time": "22:00"}, {"date": "06-24", "home": "Switzerland", "away": "Canada", "score": "VS", "time": "19:00"}];
 
         const WI = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"❄️",80:"🌧️",81:"🌧️",82:"🌧️",95:"⛈️",96:"⛈️",99:"⛈️"};
         const WD = {0:"晴",1:"大部晴",2:"多云",3:"阴天",45:"雾",51:"小毛毛雨",53:"毛毛雨",55:"大毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",80:"小阵雨",81:"中阵雨",82:"大阵雨",95:"雷暴",96:"雷暴冰雹",99:"强雷暴冰雹"};
@@ -244,7 +280,7 @@
         function gClo(t,r){ if(r)return"🌂带雨具";if(t>30)return"👕轻薄";if(t>25)return"👔短袖";if(t>20)return"🧥薄外套";return"🧥厚外套"; }
 
         function renderNews(el, list) {
-            if(!list.length) { el.innerHTML='<div style="padding:30px;text-align:center;color:#999;font-size:13px">暂无新闻</div>'; return; }
+            if(!list.length) { el.innerHTML='<div style="padding:20px;text-align:center;color:#999;font-size:13px">暂无新闻</div>'; return; }
             el.innerHTML = list.map((n,i) => {
                 let t = '';
                 if(n.time) { try { const d=new Date(n.time); if(!isNaN(d)) t=`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; } catch(e){} }
@@ -258,6 +294,19 @@
         renderNews(document.getElementById('worldNews'), WORLD_NEWS);
         renderNews(document.getElementById('footballNews'), FOOTBALL_NEWS);
         renderNews(document.getElementById('basketballNews'), BASKETBALL_NEWS);
+
+        function renderWC(matches) {
+            const el = document.getElementById('wcMatches');
+            if(!matches.length) { el.innerHTML='<div style="padding:20px;text-align:center;color:#999;font-size:13px">暂无比赛数据</div>'; return; }
+            el.innerHTML = matches.map((m,i) => `
+                <div class="wc-match" style="animation:fadeIn 0.3s ease ${i*0.05}s both">
+                    <div class="wc-date">${m.date} ${m.time}</div>
+                    <div class="wc-teams">${m.home} vs ${m.away}</div>
+                    <div class="wc-score">${m.score}</div>
+                </div>
+            `).join('');
+        }
+        renderWC(WC_MATCHES);
 
         async function loadWeather(city) {
             const el = document.getElementById('weatherContent');
