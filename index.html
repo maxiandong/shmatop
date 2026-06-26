@@ -316,6 +316,7 @@
 <body>
     <div class="container">
         <div class="search-bar">
+            <div class="datetime-info" id="datetimeInfo"></div>
             <select class="city-select" id="citySelect" onchange="loadWeather(this.value)">
                 <option value="上海">上海</option>
                 <option value="江都">江都</option>
@@ -325,7 +326,6 @@
                 <input type="text" class="search-input" id="searchInput" placeholder="输入城市名称..." onkeypress="if(event.key==='Enter')searchCity()">
                 <button class="search-btn" onclick="searchCity()">🔍 搜索</button>
             </div>
-            <div class="datetime-info" id="datetimeInfo"></div>
         </div>
 
         <div id="weatherContent">
