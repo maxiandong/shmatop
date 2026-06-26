@@ -73,6 +73,44 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(66,133,244,0.4);
         }
+        .datetime-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            font-size: 14px;
+            color: #5f6368;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .datetime-info .time {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a73e8;
+            font-variant-numeric: tabular-nums;
+        }
+        .datetime-info .date {
+            font-weight: 500;
+            color: #202124;
+        }
+        .datetime-info .lunar {
+            padding: 4px 12px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .datetime-info .weekday {
+            padding: 4px 10px;
+            background: #e8f0fe;
+            color: #1a73e8;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
         .loading {
             text-align: center;
@@ -287,6 +325,7 @@
                 <input type="text" class="search-input" id="searchInput" placeholder="输入城市名称..." onkeypress="if(event.key==='Enter')searchCity()">
                 <button class="search-btn" onclick="searchCity()">🔍 搜索</button>
             </div>
+            <div class="datetime-info" id="datetimeInfo"></div>
         </div>
 
         <div id="weatherContent">
@@ -514,6 +553,62 @@
             }
         }
 
+        function updateDateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const weekdays = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+            const weekday = weekdays[now.getDay()];
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+
+            const lunarMonths = ["正月","二月","三月","四月","五月","六月","七月","八月","九月","十月","冬月","腊月"];
+            const lunarDays = ["初一","初二","初三","初四","初五","初六","初七","初八","初九","初十",
+                "十一","十二","十三","十四","十五","十六","十七","十八","十九","二十",
+                "廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十"];
+            const solarTerms = {
+                "0105":"小寒","0120":"大寒","0203":"立春","0218":"雨水",
+                "0305":"惊蛰","0320":"春分","0404":"清明","0420":"谷雨",
+                "0505":"立夏","0521":"小满","0605":"芒种","0621":"夏至",
+                "0707":"小暑","0722":"大暑","0807":"立秋","0823":"处暑",
+                "0907":"白露","0923":"秋分","1008":"寒露","1023":"霜降",
+                "1107":"立冬","1122":"小雪","1207":"大雪","1222":"冬至"
+            };
+            const termEmojis = {
+                "小寒":"❄️","大寒":"❄️","立春":"🌱","雨水":"🌧️",
+                "惊蛰":"🐛","春分":"🌸","清明":"🌿","谷雨":"🌾",
+                "立夏":"☀️","小满":"🌾","芒种":"🌾","夏至":"🌞",
+                "小暑":"🔥","大暑":"🔥","立秋":"🍂","处暑":"🍃",
+                "白露":"💧","秋分":"🍁","寒露":"💧","霜降":"🌫️",
+                "立冬":"❄️","小雪":"🌨️","大雪":"❄️","冬至":"🥟"
+            };
+
+            const key = month + day;
+            const term = solarTerms[key];
+            let lunarText = "农历";
+            if (term) {
+                lunarText = `${termEmojis[term]} ${term}`;
+            } else {
+                const lunarMonth = lunarMonths[(now.getMonth() + 2) % 12];
+                const lunarDay = lunarDays[(now.getDate() - 1) % 30];
+                lunarText = `${lunarMonth}${lunarDay}`;
+            }
+
+            const el = document.getElementById('datetimeInfo');
+            if (el) {
+                el.innerHTML = `
+                    <span class="time">${hours}:${minutes}:${seconds}</span>
+                    <span class="weekday">${weekday}</span>
+                    <span class="date">${year}-${month}-${day}</span>
+                    <span class="lunar">${lunarText}</span>
+                `;
+            }
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
         loadWeather('上海');
     </script>
 </body>
