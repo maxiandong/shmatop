@@ -11,280 +11,277 @@
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: linear-gradient(180deg, #e8f0fe 0%, #f0f7ff 50%, #ffffff 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 16px;
             color: #202124;
         }
         .container { max-width: 1400px; margin: 0 auto; }
-        .top-bar {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-        .datetime-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            font-size: 14px;
-            color: #5f6368;
-        }
-        .datetime-info .time { font-size: 20px; font-weight: 700; color: #1a73e8; font-variant-numeric: tabular-nums; }
-        .datetime-info .weekday { padding: 4px 10px; background: #e8f0fe; color: #1a73e8; border-radius: 8px; font-size: 12px; font-weight: 600; }
-        .datetime-info .date { font-weight: 500; color: #202124; }
-        .datetime-info .lunar { padding: 4px 12px; background: linear-gradient(135deg, #4285F4, #34A853); color: white; border-radius: 16px; font-size: 12px; font-weight: 500; }
-        .city-select {
-            padding: 10px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 14px;
-            font-family: inherit;
-            background: white;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        .city-select:focus { border-color: #4285F4; box-shadow: 0 0 0 3px rgba(66,133,244,0.2); }
-        .search-group { display: flex; gap: 8px; }
-        .search-input {
-            padding: 10px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-            width: 200px;
-            transition: all 0.3s ease;
-        }
-        .search-input:focus { border-color: #4285F4; box-shadow: 0 0 0 3px rgba(66,133,244,0.2); }
-        .search-btn {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .search-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(66,133,244,0.4); }
+        .layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
 
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-        .panel {
+        .news-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .news-panel {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(66,133,244,0.1), 0 4px 16px rgba(0,0,0,0.06);
-            border: 1px solid rgba(66,133,244,0.1);
+            box-shadow: 0 2px 8px rgba(66,133,244,0.08), 0 2px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(66,133,244,0.08);
         }
-        .panel-header {
-            padding: 16px 20px;
+        .news-header {
+            padding: 14px 18px;
             background: linear-gradient(135deg, #4285F4, #34A853);
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .news-list {
-            padding: 8px 0;
-            max-height: 500px;
-            overflow-y: auto;
-        }
+        .news-list { padding: 6px 0; max-height: calc(100vh - 120px); overflow-y: auto; }
         .news-item {
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-bottom: 1px solid #f1f3f4;
             transition: all 0.2s ease;
             cursor: pointer;
         }
-        .news-item:hover { background: #f8f9fa; padding-left: 24px; }
+        .news-item:hover { background: #f8f9fa; padding-left: 20px; }
         .news-item:last-child { border-bottom: none; }
-        .news-item-title { font-size: 15px; font-weight: 500; color: #202124; line-height: 1.6; }
-        .news-item-time { font-size: 12px; color: #5f6368; margin-top: 4px; }
-        .news-list::-webkit-scrollbar { width: 6px; }
-        .news-list::-webkit-scrollbar-track { background: #f1f3f4; border-radius: 3px; }
+        .news-item-title { font-size: 14px; font-weight: 500; color: #202124; line-height: 1.6; }
+        .news-item-time { font-size: 11px; color: #999; margin-top: 3px; }
+        .news-list::-webkit-scrollbar { width: 5px; }
+        .news-list::-webkit-scrollbar-track { background: transparent; }
         .news-list::-webkit-scrollbar-thumb { background: #dadce0; border-radius: 3px; }
 
-        .weather-panel { padding: 24px; }
-        .weather-current {
-            background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC05 100%);
+        .right-panel { display: flex; flex-direction: column; gap: 16px; }
+        .datetime-card {
+            background: white;
             border-radius: 16px;
-            padding: 24px;
-            color: white;
-            margin-bottom: 20px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+            border: 1px solid rgba(66,133,244,0.08);
         }
-        .wc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .wc-city { font-size: 24px; font-weight: 700; }
-        .wc-icon { font-size: 56px; animation: pulse 2s ease-in-out infinite; }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .wc-main { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-        .wc-item { text-align: center; padding: 12px; background: rgba(255,255,255,0.2); border-radius: 12px; }
-        .wc-label { font-size: 12px; opacity: 0.9; }
-        .wc-value { font-size: 28px; font-weight: 700; }
-        .wc-sub { font-size: 12px; opacity: 0.9; margin-top: 4px; }
-        .wc-tips { display: flex; gap: 8px; flex-wrap: wrap; }
-        .wc-tip { padding: 8px 14px; border-radius: 16px; font-size: 13px; font-weight: 500; background: rgba(255,255,255,0.25); }
+        .dt-time { font-size: 32px; font-weight: 700; color: #1a73e8; text-align: center; font-variant-numeric: tabular-nums; }
+        .dt-date { text-align: center; color: #5f6368; font-size: 14px; margin-top: 6px; }
+        .dt-row { display: flex; gap: 8px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
+        .dt-tag { padding: 4px 10px; border-radius: 10px; font-size: 12px; font-weight: 500; }
+        .dt-weekday { background: #e8f0fe; color: #1a73e8; }
+        .dt-lunar { background: linear-gradient(135deg, #4285F4, #34A853); color: white; }
 
-        .forecast-title { font-size: 18px; font-weight: 700; color: #1a73e8; margin: 20px 0 12px; }
-        .forecast-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+        .search-card {
+            background: white;
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+            border: 1px solid rgba(66,133,244,0.08);
+        }
+        .search-row { display: flex; gap: 8px; }
+        .city-select {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+        .city-select:focus { border-color: #4285F4; }
+        .search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+        }
+        .search-input:focus { border-color: #4285F4; }
+        .search-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .weather-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(66,133,244,0.08);
+            border: 1px solid rgba(66,133,244,0.08);
+        }
+        .weather-header {
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .weather-body { padding: 16px; }
+        .wc-city { font-size: 18px; font-weight: 700; color: #202124; margin-bottom: 8px; }
+        .wc-main { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+        .wc-icon { font-size: 52px; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .wc-temp { font-size: 36px; font-weight: 700; color: #1a73e8; }
+        .wc-desc { font-size: 14px; color: #5f6368; }
+        .wc-info { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .wc-info-item { padding: 8px; background: #f8f9fa; border-radius: 8px; text-align: center; }
+        .wc-info-label { font-size: 11px; color: #999; }
+        .wc-info-value { font-size: 14px; font-weight: 600; color: #202124; }
+        .wc-tips { display: flex; gap: 6px; flex-wrap: wrap; }
+        .wc-tip { padding: 5px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+
+        .forecast { margin-top: 12px; }
+        .forecast-title { font-size: 14px; font-weight: 700; color: #1a73e8; margin-bottom: 10px; }
+        .forecast-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
         .day-card {
             background: #f8f9fa;
-            border-radius: 12px;
-            padding: 12px 8px;
+            border-radius: 10px;
+            padding: 8px 4px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
-        .day-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .day-date { font-size: 12px; color: #5f6368; font-weight: 500; }
-        .day-lunar { font-size: 11px; color: #1a73e8; background: #e8f0fe; display: inline-block; padding: 1px 6px; border-radius: 8px; margin: 4px 0; }
-        .day-icon { font-size: 32px; margin: 6px 0; }
-        .day-temp { font-size: 14px; font-weight: 700; color: #202124; }
-        .day-desc { font-size: 11px; color: #5f6368; margin-top: 2px; }
+        .day-card:hover { transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .day-date { font-size: 10px; color: #999; }
+        .day-icon { font-size: 24px; margin: 4px 0; }
+        .day-temp { font-size: 12px; font-weight: 700; color: #202124; }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .spinner { width: 28px; height: 28px; border: 3px solid #e0e0e0; border-top-color: #4285F4; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .animate { animation: fadeInUp 0.5s ease-out; }
 
-        @media (max-width: 900px) {
-            .main-layout { grid-template-columns: 1fr; }
-            .forecast-grid { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 1000px) {
+            .layout { grid-template-columns: 1fr; }
+            .right-panel { flex-direction: row; flex-wrap: wrap; }
+            .right-panel > * { flex: 1; min-width: 280px; }
         }
-        @media (max-width: 600px) {
-            .top-bar { flex-direction: column; align-items: stretch; }
-            .search-input { width: 100%; }
-            .forecast-grid { grid-template-columns: repeat(3, 1fr); }
-            .wc-main { grid-template-columns: 1fr; }
+        @media (max-width: 700px) {
+            .news-section { grid-template-columns: 1fr; }
+            .right-panel { flex-direction: column; }
+            .right-panel > * { min-width: auto; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="top-bar">
-            <div class="datetime-info" id="datetimeInfo"></div>
-            <select class="city-select" id="citySelect" onchange="loadWeather(this.value)">
-                <option value="上海">上海</option>
-                <option value="江都">江都</option>
-                <option value="张家港">张家港</option>
-            </select>
-            <div class="search-group">
-                <input type="text" class="search-input" id="searchInput" placeholder="搜索城市..." onkeypress="if(event.key==='Enter')searchCity()">
-                <button class="search-btn" onclick="searchCity()">🔍 搜索</button>
+        <div class="layout">
+            <div class="news-section">
+                <div class="news-panel">
+                    <div class="news-header">🇨🇳 国内新闻</div>
+                    <div class="news-list" id="cnNews"></div>
+                </div>
+                <div class="news-panel">
+                    <div class="news-header">🌍 国际新闻</div>
+                    <div class="news-list" id="worldNews"></div>
+                </div>
             </div>
-        </div>
-
-        <div class="main-layout">
-            <div class="panel animate">
-                <div class="panel-header">🇨🇳 国内新闻</div>
-                <div class="news-list" id="cnNews"></div>
-            </div>
-            <div>
-                <div class="panel animate" id="weatherPanel">
-                    <div class="panel-header">🌤️ 天气预报</div>
-                    <div class="weather-panel" id="weatherContent">
-                        <div style="text-align:center;padding:40px;color:#5f6368">
-                            <div style="width:36px;height:36px;border:3px solid #e0e0e0;border-top-color:#4285F4;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px"></div>
-                            加载中...
-                        </div>
+            <div class="right-panel">
+                <div class="datetime-card">
+                    <div class="dt-time" id="dtTime"></div>
+                    <div class="dt-date" id="dtDate"></div>
+                    <div class="dt-row">
+                        <span class="dt-tag dt-weekday" id="dtWeekday"></span>
+                        <span class="dt-tag dt-lunar" id="dtLunar"></span>
                     </div>
                 </div>
-                <div class="panel animate" style="margin-top:20px">
-                    <div class="panel-header">🌍 国际新闻</div>
-                    <div class="news-list" id="worldNews"></div>
+                <div class="search-card">
+                    <div class="search-row">
+                        <select class="city-select" id="citySelect" onchange="loadWeather(this.value)">
+                            <option value="上海">上海</option>
+                            <option value="江都">江都</option>
+                            <option value="张家港">张家港</option>
+                        </select>
+                    </div>
+                    <div class="search-row" style="margin-top:8px">
+                        <input type="text" class="search-input" id="searchInput" placeholder="搜索城市..." onkeypress="if(event.key==='Enter')searchCity()">
+                        <button class="search-btn" onclick="searchCity()">🔍</button>
+                    </div>
+                </div>
+                <div class="weather-card">
+                    <div class="weather-header">🌤️ 天气</div>
+                    <div class="weather-body" id="weatherContent">
+                        <div style="text-align:center;padding:20px"><div class="spinner"></div><div style="color:#999;font-size:13px">加载中...</div></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
     <script>
-        const CN_NEWS = [{"title": "挖潜力拓空间 多地全力兴产业促就业", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647656.shtml", "time": "Fri, 26 Jun 2026 11:27:07 +0800"}, {"title": "国家能源局：“十五五”期间将出台民营企业参与大中型水电等项目投资指引", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647647.shtml", "time": "Fri, 26 Jun 2026 11:27:01 +0800"}, {"title": "这块虎符，800年前曾调遣西藏军务", "link": "https://www.chinanews.com.cn/txy/2026/06-26/10647651.shtml", "time": "Fri, 26 Jun 2026 11:20:40 +0800"}, {"title": "日本队1比1战平瑞典队 淘汰赛将对阵巴西队", "link": "http://www.chinanews.com.cn/tp/hd2011/2026/06-26/1195814.shtml", "time": "Fri, 26 Jun 2026 11:20:17 +0800"}, {"title": "华裔新生代｜澳大利亚华裔青年罗诗豪：我有一颗中国心", "link": "http://www.chinanews.com.cn/sh/shipin/2026/06-26/news1059453.shtml", "time": "Fri, 26 Jun 2026 11:18:28 +0800"}, {"title": "搭平台促合作 上海企业海外合作对接聚焦哈萨克斯坦新机遇", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647616.shtml", "time": "Fri, 26 Jun 2026 11:18:04 +0800"}, {"title": "“扶南筑梦·国际大讲堂”走进柬埔寨大学校园", "link": "https://www.chinanews.com.cn/aseaninfo/2026/06-26/10647609.shtml", "time": "Fri, 26 Jun 2026 11:17:46 +0800"}, {"title": "五年，一份沉甸甸的留学报国答卷", "link": "https://www.chinanews.com.cn/txy/2026/06-26/10647643.shtml", "time": "Fri, 26 Jun 2026 11:16:28 +0800"}, {"title": "国家能源局：到“十五五”末，风电、太阳能发电装机预计将达28亿千瓦以上", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647637.shtml", "time": "Fri, 26 Jun 2026 11:12:42 +0800"}, {"title": "加拿大总理称应重开在伊朗和委内瑞拉的使馆", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647558.shtml", "time": "Fri, 26 Jun 2026 11:10:46 +0800"}, {"title": "民盟湖南湘潭市易俗河支部开展“企业服务年”暨“湘莲种植科技科普”活动", "link": "https://www.chinanews.com.cn/txy/2026/06-26/10647642.shtml", "time": "Fri, 26 Jun 2026 11:10:22 +0800"}, {"title": "非洲疾控呼吁筹集14亿美元抗击埃博拉", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647514.shtml", "time": "Fri, 26 Jun 2026 11:09:52 +0800"}, {"title": "巴西向委内瑞拉派遣人道主义救援队", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647507.shtml", "time": "Fri, 26 Jun 2026 11:09:26 +0800"}, {"title": "美媒：美官员称伊朗袭击货船 美伊协议受考验", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647628.shtml", "time": "Fri, 26 Jun 2026 11:09:24 +0800"}, {"title": "巴西央行将2026年经济增长预期上调至2%", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647506.shtml", "time": "Fri, 26 Jun 2026 11:08:41 +0800"}, {"title": "100秒讲透关键词 ：“古流”兴起！带动假日文旅新趋势", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647639.shtml", "time": "Fri, 26 Jun 2026 11:07:57 +0800"}, {"title": "国家能源局：“十五五”时期将显著提升非化石能源供给", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647633.shtml", "time": "Fri, 26 Jun 2026 11:06:57 +0800"}, {"title": "“创新红利”，推动中国机遇再升级（和音）", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647640.shtml", "time": "Fri, 26 Jun 2026 11:03:57 +0800"}, {"title": "经纬线·全国土地日，跟总书记看一块土地“三本账”", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647636.shtml", "time": "Fri, 26 Jun 2026 11:00:47 +0800"}, {"title": "在分数和录取线之间 如何更好填报高考志愿？", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647635.shtml", "time": "Fri, 26 Jun 2026 10:56:04 +0800"}];
+        const CN_NEWS = [{"title": "外媒人士探访“机器人大世界”：中国科技发展速度前所未有", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647631.shtml", "time": "Fri, 26 Jun 2026 11:51:38 +0800"}, {"title": "“你好！中国”旅游推介会暨2026中法商旅融合发展交流活动举行", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647665.shtml", "time": "Fri, 26 Jun 2026 11:43:05 +0800"}, {"title": "因一货船遇袭 国际海事组织暂停霍尔木兹海峡滞留船舶疏散行动", "link": "https://www.chinanews.com.cn/gj/2026/06-26/10647641.shtml", "time": "Fri, 26 Jun 2026 11:42:33 +0800"}, {"title": "深刻认识习近平党建思想里程碑意义", "link": "https://www.chinanews.com.cn/ll/2026/06-26/10647676.shtml", "time": "Fri, 26 Jun 2026 11:42:05 +0800"}, {"title": "人工智能爆发式增长带动用电量激增 国家能源局：多维度推进算电协同", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647670.shtml", "time": "Fri, 26 Jun 2026 11:41:29 +0800"}, {"title": "好评中国·“经”彩开局｜厚植产业沃土，就会“长”出好岗位", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647675.shtml", "time": "Fri, 26 Jun 2026 11:40:55 +0800"}, {"title": "A股午评：三大指数集体飘绿，超4500只个股下跌", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647674.shtml", "time": "Fri, 26 Jun 2026 11:40:47 +0800"}, {"title": "金观平：用好增量空间促进青年就业", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647672.shtml", "time": "Fri, 26 Jun 2026 11:38:09 +0800"}, {"title": "澳大利亚驻华商务公使：链博会助力澳中两国“双向奔赴” | 世界观", "link": "http://www.chinanews.com.cn/gj/shipin/2026/06-26/news1059460.shtml", "time": "Fri, 26 Jun 2026 11:37:50 +0800"}, {"title": "官方：“十五五”时期预计全国年均用电增量将达6000亿度左右", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647660.shtml", "time": "Fri, 26 Jun 2026 11:37:41 +0800"}, {"title": "习近平会见柬埔寨人民党主席、参议院主席洪森", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647667.shtml", "time": "Fri, 26 Jun 2026 11:34:23 +0800"}, {"title": "深耕特色富民路 山西五寨甜糯玉米产业年产值突破6亿元", "link": "https://www.chinanews.com.cn/cj/2026/06-26/10647629.shtml", "time": "Fri, 26 Jun 2026 11:28:37 +0800"}, {"title": "上海专家与海外侨胞云端共话埃博拉疫情防控", "link": "https://www.chinanews.com.cn/hr/2026/06-26/10647617.shtml", "time": "Fri, 26 Jun 2026 11:28:09 +0800"}, {"title": "第五届“一带一路”百校结好艺术展在兰州启幕", "link": "http://www.chinanews.com.cn/sh/shipin/cns-d/2026/06-26/news1059456.shtml", "time": "Fri, 26 Jun 2026 11:27:37 +0800"}, {"title": "挖潜力拓空间 多地全力兴产业促就业", "link": "https://www.chinanews.com.cn/sh/2026/06-26/10647656.shtml", "time": "Fri, 26 Jun 2026 11:27:07 +0800"}, {"title": "国家能源局：“十五五”期间将出台民营企业参与大中型水电等项目投资指引", "link": "https://www.chinanews.com.cn/gn/2026/06-26/10647647.shtml", "time": "Fri, 26 Jun 2026 11:27:01 +0800"}, {"title": "“鼓足干劲向中国学习！” 贝宁军官：非洲切勿错过关键转折点", "link": "http://www.chinanews.com.cn/sh/shipin/2026/06-26/news1059454.shtml", "time": "Fri, 26 Jun 2026 11:24:14 +0800"}, {"title": "这块虎符，800年前曾调遣西藏军务", "link": "https://www.chinanews.com.cn/txy/2026/06-26/10647651.shtml", "time": "Fri, 26 Jun 2026 11:20:40 +0800"}, {"title": "日本队1比1战平瑞典队 淘汰赛将对阵巴西队", "link": "http://www.chinanews.com.cn/tp/hd2011/2026/06-26/1195814.shtml", "time": "Fri, 26 Jun 2026 11:20:17 +0800"}, {"title": "华裔新生代｜澳大利亚华裔青年罗诗豪：我有一颗中国心", "link": "http://www.chinanews.com.cn/sh/shipin/2026/06-26/news1059453.shtml", "time": "Fri, 26 Jun 2026 11:18:28 +0800"}];
         const WORLD_NEWS = [{"title": "Rescuers search rubble for survivors as Venezuela earthquakes kill at least 235", "link": "https://www.bbc.co.uk/news/articles/cjegdqw5d3yo?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 03:24:12 GMT"}, {"title": "Earthquake is devastating blow to Venezuela at time of uncertainty", "link": "https://www.bbc.co.uk/news/articles/c3vynpw7rk4o?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 02:12:07 GMT"}, {"title": "People flee as building collapses on Caracas outskirts", "link": "https://www.bbc.co.uk/news/videos/c78y1e3606vo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 12:08:30 GMT"}, {"title": "Paris restricts alcohol consumption and sales as Europe's heatwave shifts east", "link": "https://www.bbc.co.uk/news/articles/cwy0pdq89zno?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 00:06:45 GMT"}, {"title": "UN pauses Strait of Hormuz evacuation plan after cargo ship attacked", "link": "https://www.bbc.co.uk/news/articles/cjwg9np904qo?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 00:28:02 GMT"}, {"title": "Women alleging rape and sexual assault in France call to abolish statute of limitations", "link": "https://www.bbc.co.uk/news/articles/ckg7z5dvxnzo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 18:50:12 GMT"}, {"title": "Supreme Court allows Trump to end protected status for Haitian and Syrian immigrants", "link": "https://www.bbc.co.uk/news/articles/c4g8ym422lko?at_medium=RSS&at_campaign=rss", "time": "Fri, 26 Jun 2026 02:18:04 GMT"}, {"title": "Trump asks Congress for billions for Iran war, after tension with Republicans", "link": "https://www.bbc.co.uk/news/articles/c1eydwldzdjo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 09:06:59 GMT"}, {"title": "Families lay flowers on barbed wire barricade on anniversary of deadly Kenya protests", "link": "https://www.bbc.co.uk/news/articles/cgqjl8kj8wpo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 16:53:51 GMT"}, {"title": "Ryanair says it will reluctantly not charge parents to sit next to children", "link": "https://www.bbc.co.uk/news/articles/cdr4zy4e1n1o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 12:08:33 GMT"}, {"title": "Oil price falls back to pre-Iran war levels", "link": "https://www.bbc.co.uk/news/articles/c0jy7d7wzv4o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 15:32:04 GMT"}, {"title": "Key figure in South Africa police corruption scandal pleads guilty", "link": "https://www.bbc.co.uk/news/articles/cx2j4g5k52jo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 14:00:13 GMT"}, {"title": "IBM hails new 'block of flats' design breakthrough for ultra tiny chips", "link": "https://www.bbc.co.uk/news/articles/cvg7vpyn5pxo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 10:04:43 GMT"}, {"title": "Philippines bans video game played by alleged high school shooter", "link": "https://www.bbc.co.uk/news/articles/c14y7738nm8o?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 22:14:12 GMT"}, {"title": "Anthropic accuses Chinese rival Alibaba of illicitly extracting AI capabilities", "link": "https://www.bbc.co.uk/news/articles/cwyklykn5dwo?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 03:12:17 GMT"}, {"title": "Independent MPs launch new Australian centrist party", "link": "https://www.bbc.co.uk/news/articles/ckg76mgz0m1o?at_medium=RSS&at_campaign=rss", "time": "Thu, 25 Jun 2026 02:41:28 GMT"}, {"title": "Clean sweep for Mamdani-backed candidates in New York's Democratic primary", "link": "https://www.bbc.co.uk/news/articles/clye652m41po?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 13:03:35 GMT"}, {"title": "Air conditioning creates political divide after France records hottest day", "link": "https://www.bbc.co.uk/news/articles/c4gyqldl3p5o?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 13:51:24 GMT"}, {"title": "Biggest city in Crimea without power after Ukraine strikes", "link": "https://www.bbc.co.uk/news/articles/c3ryv72pjqno?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 09:48:24 GMT"}, {"title": "UN nuclear chief says inspectors will visit Iran sites as part of war deal", "link": "https://www.bbc.co.uk/news/articles/cpd395zv81vo?at_medium=RSS&at_campaign=rss", "time": "Wed, 24 Jun 2026 17:31:48 GMT"}];
 
-        const WEATHER_ICONS = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"❄️",80:"🌧️",81:"🌧️",82:"🌧️",95:"⛈️",96:"⛈️",99:"⛈️"};
-        const WEATHER_DESC = {0:"晴",1:"大部晴",2:"多云",3:"阴天",45:"雾",51:"小毛毛雨",53:"毛毛雨",55:"大毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",80:"小阵雨",81:"中阵雨",82:"大阵雨",95:"雷暴",96:"雷暴冰雹",99:"强雷暴冰雹"};
-        const windDirs = ["北","东北","东","东南","南","西南","西","西北"];
-        function getWindDir(d) { return windDirs[Math.round(d/45)%8]+"风"; }
-        function getWindLevel(s) { if(s<6)return"软风";if(s<12)return"轻风";if(s<20)return"微风";if(s<29)return"和风";if(s<39)return"清风";return"强风+"; }
-        function getUV(u) { if(u<=2)return["弱","#27ae60"];if(u<=5)return["中","#f39c12"];if(u<=7)return["强","#e67e22"];return["很强","#e74c3c"]; }
-        function getUmbrella(p,c) { const r=[51,53,55,61,63,65,80,81,82,95,96,99];if(r.includes(c)||p>50)return["☂️ 必带","#e74c3c"];if(p>30)return["🌂 备伞","#f39c12"];return["☔ 不需要","#27ae60"]; }
-        function getClothing(t,r) { if(r)return"🌂 带雨具";if(t>30)return"👕 轻薄透气";if(t>25)return"👔 短袖/薄长袖";if(t>20)return"🧥 薄外套";if(t>15)return"🧥 外套/卫衣";return"🧥 厚外套/羽绒服"; }
+        const WI = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"❄️",80:"🌧️",81:"🌧️",82:"🌧️",95:"⛈️",96:"⛈️",99:"⛈️"};
+        const WD = {0:"晴",1:"大部晴",2:"多云",3:"阴天",45:"雾",51:"小毛毛雨",53:"毛毛雨",55:"大毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",80:"小阵雨",81:"中阵雨",82:"大阵雨",95:"雷暴",96:"雷暴冰雹",99:"强雷暴冰雹"};
+        const wDirs=["北","东北","东","东南","南","西南","西","西北"];
+        function gDir(d){ return wDirs[Math.round(d/45)%8]+"风"; }
+        function gWL(s){ if(s<6)return"软风";if(s<12)return"轻风";if(s<20)return"微风";if(s<29)return"和风";return"清风"; }
+        function gUV(u){ if(u<=2)return["弱","#27ae60"];if(u<=5)return["中","#f39c12"];return["强","#e67e22"]; }
+        function gUmb(p,c){ const r=[51,53,55,61,63,65,80,81,82,95,96,99];if(r.includes(c)||p>50)return["☂️","#e74c3c"];if(p>30)return["🌂","#f39c12"];return["☔","#27ae60"]; }
+        function gClo(t,r){ if(r)return"🌂带雨具";if(t>30)return"👕轻薄";if(t>25)return"👔短袖";if(t>20)return"🧥薄外套";return"🧥厚外套"; }
 
         function renderNews(el, list) {
-            if(!list.length) { el.innerHTML='<div style="padding:40px;text-align:center;color:#5f6368">暂无新闻</div>'; return; }
+            if(!list.length) { el.innerHTML='<div style="padding:30px;text-align:center;color:#999;font-size:13px">暂无新闻</div>'; return; }
             el.innerHTML = list.map((n,i) => {
                 let t = '';
                 if(n.time) { try { const d=new Date(n.time); if(!isNaN(d)) t=`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; } catch(e){} }
-                return `<div class="news-item" style="animation:fadeIn 0.3s ease ${i*0.03}s both" onclick="window.open('${(n.link||'#').replace(/"/g,'&quot;')}','_blank')">
+                return `<div class="news-item" style="animation:fadeIn 0.3s ease ${i*0.02}s both" onclick="window.open('${(n.link||'#').replace(/"/g,'&quot;')}','_blank')">
                     <div class="news-item-title">${n.title.replace(/</g,'&lt;')}</div>
                     ${t?`<div class="news-item-time">🕐 ${t}</div>`:''}
                 </div>`;
             }).join('');
         }
-
         renderNews(document.getElementById('cnNews'), CN_NEWS);
         renderNews(document.getElementById('worldNews'), WORLD_NEWS);
 
         async function loadWeather(city) {
             const el = document.getElementById('weatherContent');
-            el.innerHTML = '<div style="text-align:center;padding:40px;color:#5f6368"><div style="width:36px;height:36px;border:3px solid #e0e0e0;border-top-color:#4285F4;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px"></div>加载中...</div>';
+            el.innerHTML = '<div style="text-align:center;padding:20px"><div class="spinner"></div><div style="color:#999;font-size:13px">加载中...</div></div>';
             try {
                 const g = await (await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=zh`)).json();
-                if(!g.results||!g.results.length) { el.innerHTML='<div style="padding:40px;text-align:center;color:#e74c3c">未找到该城市</div>'; return; }
+                if(!g.results||!g.results.length) { el.innerHTML='<div style="padding:20px;text-align:center;color:#e74c3c;font-size:13px">未找到城市</div>'; return; }
                 const geo=g.results[0];
-                const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geo.latitude}&longitude=${geo.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,uv_index&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,uv_index_max&timezone=auto&forecast_days=7`)).json();
-                const c=w.current, code=c.weather_code, icon=WEATHER_ICONS[code]||"🌤️", desc=WEATHER_DESC[code]||"未知";
+                const w = await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geo.latitude}&longitude=${geo.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,uv_index&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&timezone=auto&forecast_days=7`)).json();
+                const c=w.current, code=c.weather_code, icon=WI[code]||"🌤️", desc=WD[code]||"未知";
                 const rc=[51,53,55,61,63,65,80,81,82,95,96,99];
-                const uv=getUV(c.uv_index), umb=getUmbrella(0,code), cloth=getClothing(c.temperature_2m,rc.includes(code));
-
-                const wk=["周日","周一","周二","周三","周四","周五","周六"];
-                const wk2=["周一","周二","周三","周四","周五","周六","周日"];
-                const today=new Date();
-                const weekday=wk2[(today.getDay()+6)%7];
+                const uv=gUV(c.uv_index), umb=gUmb(0,code), cloth=gClo(c.temperature_2m,rc.includes(code));
+                const wk=["日","一","二","三","四","五","六"];
 
                 let forecastHTML='';
                 for(let i=0;i<7;i++){
                     const d=new Date(w.daily.time[i]);
-                    const wd=wk[d.getDay()];
                     const dayCode=w.daily.weather_code[i];
-                    const di=WEATHER_ICONS[dayCode]||"🌤️";
-                    const dd=WEATHER_DESC[dayCode]||"未知";
                     forecastHTML+=`<div class="day-card">
-                        <div class="day-date">${w.daily.time[i].slice(5)} ${wd}</div>
-                        <div class="day-icon">${di}</div>
+                        <div class="day-date">${w.daily.time[i].slice(5)} 周${wk[d.getDay()]}</div>
+                        <div class="day-icon">${WI[dayCode]||"🌤️"}</div>
                         <div class="day-temp">${w.daily.temperature_2m_min[i]}~${w.daily.temperature_2m_max[i]}°</div>
-                        <div class="day-desc">${dd}</div>
                     </div>`;
                 }
 
                 el.innerHTML=`
-                <div class="weather-current">
-                    <div class="wc-header">
-                        <div class="wc-city">📍 ${geo.name} ${geo.country||''}</div>
-                        <div class="wc-icon">${icon}</div>
-                    </div>
+                    <div class="wc-city">📍 ${geo.name}</div>
                     <div class="wc-main">
-                        <div class="wc-item"><div class="wc-label">🌡️ 温度</div><div class="wc-value">${Math.round(c.temperature_2m)}°C</div><div class="wc-sub">体感 ${Math.round(c.apparent_temperature)}°C</div></div>
-                        <div class="wc-item"><div class="wc-label">💧 湿度</div><div class="wc-value">${c.relative_humidity_2m}%</div></div>
-                        <div class="wc-item"><div class="wc-label">💨 风速</div><div class="wc-value">${c.wind_speed_10m}</div><div class="wc-sub">${getWindDir(c.wind_direction_10m)} ${getWindLevel(c.wind_speed_10m)}</div></div>
+                        <div class="wc-icon">${icon}</div>
+                        <div><div class="wc-temp">${Math.round(c.temperature_2m)}°C</div><div class="wc-desc">${desc} · 体感${Math.round(c.apparent_temperature)}°</div></div>
+                    </div>
+                    <div class="wc-info">
+                        <div class="wc-info-item"><div class="wc-info-label">💧 湿度</div><div class="wc-info-value">${c.relative_humidity_2m}%</div></div>
+                        <div class="wc-info-item"><div class="wc-info-label">💨 风速</div><div class="wc-info-value">${gDir(c.wind_direction_10m)}${gWL(c.wind_speed_10m)}</div></div>
+                        <div class="wc-info-item"><div class="wc-info-label">☀️ 紫外线</div><div class="wc-info-value" style="color:${uv[1]}">${uv[0]}</div></div>
+                        <div class="wc-info-item"><div class="wc-info-label">🌧️ 降雨</div><div class="wc-info-value">${w.daily.precipitation_probability_max[0]}%</div></div>
                     </div>
                     <div class="wc-tips">
-                        <div class="wc-tip">☀️ UV: ${uv[0]}</div>
-                        <div class="wc-tip">${umb[0]}</div>
-                        <div class="wc-tip">${cloth}</div>
+                        <div class="wc-tip" style="background:${umb[1]};color:#fff">${umb[0]}</div>
+                        <div class="wc-tip" style="background:#4285F4;color:#fff">${cloth}</div>
                     </div>
-                </div>
-                <div class="forecast-title">📅 未来7天</div>
-                <div class="forecast-grid">${forecastHTML}</div>`;
-            } catch(e) { el.innerHTML=`<div style="padding:40px;text-align:center;color:#e74c3c">获取失败: ${e.message}</div>`; }
+                    <div class="forecast">
+                        <div class="forecast-title">📅 未来7天</div>
+                        <div class="forecast-grid">${forecastHTML}</div>
+                    </div>`;
+            } catch(e) { el.innerHTML=`<div style="padding:20px;text-align:center;color:#e74c3c;font-size:13px">获取失败</div>`; }
         }
 
         function searchCity() {
@@ -292,22 +289,21 @@
             if(v){ document.getElementById('citySelect').value=''; loadWeather(v); }
         }
 
-        function updateDateTime() {
+        function updateDT() {
             const now=new Date();
             const h=String(now.getHours()).padStart(2,'0'), m=String(now.getMinutes()).padStart(2,'0'), s=String(now.getSeconds()).padStart(2,'0');
             const wk=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
-            const solarTerms={"0105":"小寒","0120":"大寒","0203":"立春","0218":"雨水","0305":"惊蛰","0320":"春分","0404":"清明","0420":"谷雨","0505":"立夏","0521":"小满","0605":"芒种","0621":"夏至","0707":"小暑","0722":"大暑","0807":"立秋","0823":"处暑","0907":"白露","0923":"秋分","1008":"寒露","1023":"霜降","1107":"立冬","1122":"小雪","1207":"大雪","1222":"冬至"};
-            const termEmoji={"小寒":"❄️","大寒":"❄️","立春":"🌱","雨水":"🌧️","惊蛰":"🐛","春分":"🌸","清明":"🌿","谷雨":"🌾","立夏":"☀️","小满":"🌾","芒种":"🌾","夏至":"🌞","小暑":"🔥","大暑":"🔥","立秋":"🍂","处暑":"🍃","白露":"💧","秋分":"🍁","寒露":"💧","霜降":"🌫️","立冬":"❄️","小雪":"🌨️","大雪":"❄️","冬至":"🥟"};
+            const st={"0105":"小寒","0120":"大寒","0203":"立春","0218":"雨水","0305":"惊蛰","0320":"春分","0404":"清明","0420":"谷雨","0505":"立夏","0521":"小满","0605":"芒种","0621":"夏至","0707":"小暑","0722":"大暑","0807":"立秋","0823":"处暑","0907":"白露","0923":"秋分","1008":"寒露","1023":"霜降","1107":"立冬","1122":"小雪","1207":"大雪","1222":"冬至"};
+            const te={"小寒":"❄️","大寒":"❄️","立春":"🌱","雨水":"🌧️","惊蛰":"🐛","春分":"🌸","清明":"🌿","谷雨":"🌾","立夏":"☀️","小满":"🌾","芒种":"🌾","夏至":"🌞","小暑":"🔥","大暑":"🔥","立秋":"🍂","处暑":"🍃","白露":"💧","秋分":"🍁","寒露":"💧","霜降":"🌫️","立冬":"❄️","小雪":"🌨️","大雪":"❄️","冬至":"🥟"};
             const key=String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
-            const term=solarTerms[key];
-            const lunarText=term?`${termEmoji[term]} ${term}`:`${["正月","二月","三月","四月","五月","六月","七月","八月","九月","十月","冬月","腊月"][(now.getMonth()+2)%12]}${["初一","初二","初三","初四","初五","初六","初七","初八","初九","初十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十","廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十"][(now.getDate()-1)%30]}`;
-            document.getElementById('datetimeInfo').innerHTML=`
-                <span class="time">${h}:${m}:${s}</span>
-                <span class="weekday">${wk[now.getDay()]}</span>
-                <span class="date">${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}</span>
-                <span class="lunar">${lunarText}</span>`;
+            const term=st[key];
+            const lunar=term?`${te[term]} ${term}`:`${["正月","二月","三月","四月","五月","六月","七月","八月","九月","十月","冬月","腊月"][(now.getMonth()+2)%12]}${["初一","初二","初三","初四","初五","初六","初七","初八","初九","初十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十","廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十"][(now.getDate()-1)%30]}`;
+            document.getElementById('dtTime').textContent=`${h}:${m}:${s}`;
+            document.getElementById('dtDate').textContent=`${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
+            document.getElementById('dtWeekday').textContent=wk[now.getDay()];
+            document.getElementById('dtLunar').textContent=lunar;
         }
-        setInterval(updateDateTime,1000); updateDateTime();
+        setInterval(updateDT,1000); updateDT();
         loadWeather('上海');
     </script>
 </body>
