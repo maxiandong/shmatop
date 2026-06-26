@@ -343,7 +343,7 @@
             overflow-y: auto;
         }
         .news-item {
-            padding: 12px 20px;
+            padding: 14px 20px;
             border-bottom: 1px solid #f1f3f4;
             transition: all 0.2s ease;
             cursor: pointer;
@@ -355,20 +355,21 @@
         }
         .news-item:last-child { border-bottom: none; }
         .news-item-title {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
             color: #202124;
-            line-height: 1.5;
-            margin-bottom: 4px;
+            line-height: 1.6;
+            margin-bottom: 6px;
         }
         .news-item-time {
-            font-size: 12px;
+            font-size: 13px;
             color: #5f6368;
         }
         .news-loading {
             padding: 40px;
             text-align: center;
             color: #5f6368;
+            font-size: 14px;
         }
         .news-loading .spinner {
             width: 32px;
@@ -718,29 +719,18 @@
             const cnNewsEl = document.getElementById('cnNews');
             const worldNewsEl = document.getElementById('worldNews');
 
-            const cnFeeds = [
-                'https://rsshub.app/zaobao/realtime/china',
-                'https://rsshub.app/thepaper/featured',
-                'https://rsshub.app/sina/rollnews'
-            ];
-            const worldFeeds = [
-                'https://rsshub.app/bbc/zhongwen',
-                'https://rsshub.app/reuters/world',
-                'https://rsshub.app/nyt/world'
-            ];
-
             async function fetchRSS(url) {
                 try {
                     const resp = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
                     const data = await resp.json();
-                    if (data.status === 'ok' && data.items) {
-                        return data.items.map(item => ({
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        return data.items.slice(0, 20).map(item => ({
                             title: item.title,
                             link: item.link,
                             time: item.pubDate
                         }));
                     }
-                } catch(e) {}
+                } catch(e) { console.log('rss2json failed:', url, e); }
                 return [];
             }
 
@@ -750,20 +740,20 @@
                     const text = await resp.text();
                     const parser = new DOMParser();
                     const xml = parser.parseFromString(text, 'text/xml');
-                    const items = xml.querySelectorAll('item');
+                    const items = xml.querySelectorAll('item, entry');
                     const results = [];
                     items.forEach((item, i) => {
                         if (i >= 20) return;
                         const title = item.querySelector('title')?.textContent || '';
-                        const link = item.querySelector('link')?.textContent || '';
-                        const pubDate = item.querySelector('pubDate')?.textContent || '';
-                        if (title) results.push({ title, link, time: pubDate });
+                        const link = item.querySelector('link')?.textContent || item.querySelector('link')?.getAttribute('href') || '';
+                        const pubDate = item.querySelector('pubDate, published, updated')?.textContent || '';
+                        if (title) results.push({ title: title.trim(), link, time: pubDate });
                     });
                     return results;
-                } catch(e) { return []; }
+                } catch(e) { console.log('direct fetch failed:', url, e); return []; }
             }
 
-            async function loadNewsPanel(feeds, container) {
+            async function fetchAllFeeds(feeds) {
                 let allNews = [];
                 for (const feed of feeds) {
                     let items = await fetchRSS(feed);
@@ -772,30 +762,62 @@
                     }
                     allNews = allNews.concat(items);
                 }
-
                 const seen = new Set();
-                allNews = allNews.filter(n => {
-                    if (seen.has(n.title)) return false;
-                    seen.add(n.title);
+                return allNews.filter(n => {
+                    const key = n.title.substring(0, 20);
+                    if (seen.has(key)) return false;
+                    seen.add(key);
                     return true;
                 }).slice(0, 20);
+            }
 
-                if (allNews.length === 0) {
-                    container.innerHTML = '<div class="news-loading">暂无新闻</div>';
+            const cnFeeds = [
+                'https://rsshub.app/zaobao/realtime/china',
+                'https://rsshub.app/thepaper/featured',
+                'https://rsshub.app/sina/rollnews',
+                'https://rsshub.app/toutiao/today'
+            ];
+            const worldFeeds = [
+                'https://rsshub.app/bbc/zhongwen',
+                'https://rsshub.app/reuters/world',
+                'https://rsshub.app/nyt/world',
+                'https://rsshub.app/apnews/topics/world-news'
+            ];
+
+            function renderNews(container, newsList) {
+                if (newsList.length === 0) {
+                    container.innerHTML = '<div class="news-loading">暂无新闻，稍后再试</div>';
                     return;
                 }
-
-                container.innerHTML = allNews.map((news, i) => {
-                    const time = news.time ? new Date(news.time).toLocaleString('zh-CN', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
-                    return `<div class="news-item" style="animation-delay:${i*0.05}s" onclick="window.open('${news.link}','_blank')">
-                        <div class="news-item-title">${news.title}</div>
-                        ${time ? `<div class="news-item-time">🕐 ${time}</div>` : ''}
+                container.innerHTML = newsList.map((news, i) => {
+                    let timeStr = '';
+                    if (news.time) {
+                        try {
+                            const d = new Date(news.time);
+                            if (!isNaN(d.getTime())) {
+                                timeStr = `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+                            }
+                        } catch(e) {}
+                    }
+                    const safeTitle = news.title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    const safeLink = (news.link || '#').replace(/"/g, '&quot;');
+                    return `<div class="news-item" style="animation-delay:${i*0.03}s" onclick="window.open('${safeLink}','_blank')">
+                        <div class="news-item-title">${safeTitle}</div>
+                        ${timeStr ? `<div class="news-item-time">🕐 ${timeStr}</div>` : ''}
                     </div>`;
                 }).join('');
             }
 
-            loadNewsPanel(cnFeeds, cnNewsEl);
-            loadNewsPanel(worldFeeds, worldNewsEl);
+            cnNewsEl.innerHTML = '<div class="news-loading"><div class="spinner"></div>加载中...</div>';
+            worldNewsEl.innerHTML = '<div class="news-loading"><div class="spinner"></div>加载中...</div>';
+
+            const [cnNews, worldNews] = await Promise.all([
+                fetchAllFeeds(cnFeeds),
+                fetchAllFeeds(worldFeeds)
+            ]);
+
+            renderNews(cnNewsEl, cnNews);
+            renderNews(worldNewsEl, worldNews);
         }
     </script>
 </body>
