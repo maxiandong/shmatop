@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热搜信息汇总 - shma.top</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: #f8f9fa; min-height: 100vh; padding: 20px; color: #202124; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .back { display: inline-block; padding: 8px 16px; background: #4285F4; color: white; text-decoration: none; border-radius: 8px; font-size: 14px; margin-bottom: 16px; }
+        .back:hover { background: #3367D6; }
+        .header { background: white; border-radius: 16px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .header h1 { font-size: 22px; color: #1a73e8; margin-bottom: 8px; }
+        .header .meta { font-size: 13px; color: #5f6368; }
+        .content { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .news-item { padding: 12px 0; border-bottom: 1px solid #f1f3f4; }
+        .news-item:last-child { border-bottom: none; }
+        .news-title { font-size: 15px; font-weight: 500; line-height: 1.6; color: #202124; }
+        .news-link { margin-top: 6px; }
+        .news-link a { color: #1a73e8; font-size: 13px; text-decoration: none; }
+        .news-link a:hover { text-decoration: underline; }
+        .footer { margin-top: 20px; padding: 16px; background: white; border-radius: 12px; text-align: center; font-size: 12px; color: #999; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back">← 返回首页</a>
+        <div class="header">
+            <h1>热搜信息汇总</h1>
+            <div class="meta">📅 最近30天 | 来源：中新网 | 共 0 条</div>
+        </div>
+        <div class="content"></div>
+        <div class="footer">
+            本信息来自 中新网，更新时间：2026-06-29 09:02<br>
+            © shma.top 天气与新闻
+        </div>
+    </div>
+</body>
+</html>
