@@ -123,7 +123,7 @@
             </div>
             <div class="col">
                 <div class="news-panel">
-                    <div class="news-header hot">🔥 热搜信息 <a href="/news/hot.html" class="more-btn">更多 →</a></div>
+                    <div class="news-header hot">🔥 各平台热搜 <a href="/news/hot.html" class="more-btn">更多 →</a></div>
                     <div class="news-list" id="hotNews"></div>
                 </div>
                 <div class="news-panel">
@@ -174,11 +174,17 @@
     <script>
         const RSS_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
         const FEEDS = {
-            cn: ['https://www.chinanews.com.cn/rss/scroll-news.xml'],
-            hot: ['https://www.chinanews.com.cn/rss/scroll-news.xml'],
+            cn: ['https://www.chinanews.com.cn/rss/scroll-news.xml', 'https://feeds.bbci.co.uk/news/world/rss.xml'],
             sports: ['https://www.chinanews.com.cn/rss/sports.xml', 'https://feeds.bbci.co.uk/sport/rss.xml'],
             tech: ['https://www.ithome.com/rss/', 'https://36kr.com/feed']
         };
+        const HOT_APIS = [
+            { name: '百度', url: 'https://api.vvhan.com/api/hotlist/baiduRD', key: 'data' },
+            { name: '知乎', url: 'https://api.vvhan.com/api/hotlist/zhihuHot', key: 'data' },
+            { name: 'B站', url: 'https://api.vvhan.com/api/hotlist/bili', key: 'data' },
+            { name: '抖音', url: 'https://api.vvhan.com/api/hotlist/douyin', key: 'data' },
+            { name: '微博', url: 'https://api.vvhan.com/api/hotlist/weibo', key: 'data' }
+        ];
         const NEWS_DATES = ["2026-07-06", "2026-06-29"];
 
         const WI = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"❄️",80:"🌧️",81:"🌧️",82:"🌧️",95:"⛈️",96:"⛈️",99:"⛈️"};
@@ -208,8 +214,8 @@
             link = decodeURIComponent(link);
             time = decodeURIComponent(time);
             desc = decodeURIComponent(desc);
-            const catNames = {cn:'国内外新闻',hot:'热搜信息',sports:'体育新闻',tech:'科技新闻'};
-            const sources = {cn:'中新网',hot:'中新网',sports:'中新网体育/BBC',tech:'IT之家/36氪'};
+            const catNames = {cn:'国内外新闻',hot:'各平台热搜',sports:'体育新闻',tech:'科技新闻'};
+            const sources = {cn:'中新网/BBC',hot:'百度/知乎/B站/抖音/微博',sports:'中新网体育/BBC',tech:'IT之家/36氪'};
             const html = `<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>${title} - shma.top</title>
@@ -263,15 +269,45 @@
             return result.slice(0, 20);
         }
 
+        async function fetchHotSearches() {
+            const seen = new Set();
+            const result = [];
+            const promises = HOT_APIS.map(async (api) => {
+                try {
+                    const resp = await fetch(api.url);
+                    const json = await resp.json();
+                    const list = json[api.key] || [];
+                    for (const item of list.slice(0, 6)) {
+                        const title = item.title || item.word || item.name || '';
+                        if (title && !seen.has(title)) {
+                            seen.add(title);
+                            result.push({
+                                title: `[${api.name}] ${title}`,
+                                link: item.url || item.hotUrl || item.link || '#',
+                                time: '',
+                                desc: item.desc || ''
+                            });
+                        }
+                    }
+                } catch(e) {}
+            });
+            await Promise.all(promises);
+            return result.slice(0, 20);
+        }
+
         async function loadAllNews() {
-            const cats = ['cn', 'hot', 'sports', 'tech'];
-            const ids = {cn:'cnNews', hot:'hotNews', sports:'sportsNews', tech:'techNews'};
-            for (const cat of cats) {
+            const rssCats = ['cn', 'sports', 'tech'];
+            const ids = {cn:'cnNews', sports:'sportsNews', tech:'techNews'};
+            for (const cat of rssCats) {
                 const el = document.getElementById(ids[cat]);
                 el.innerHTML = '<div style="padding:16px;text-align:center"><div class="spinner"></div><div style="color:#999;font-size:12px">加载中...</div></div>';
                 const items = await fetchAllNews(cat);
                 renderNews(el, items, cat);
             }
+            const hotEl = document.getElementById('hotNews');
+            hotEl.innerHTML = '<div style="padding:16px;text-align:center"><div class="spinner"></div><div style="color:#999;font-size:12px">加载中...</div></div>';
+            const hotItems = await fetchHotSearches();
+            renderNews(hotEl, hotItems, 'hot');
         }
 
         loadAllNews();
