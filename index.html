@@ -178,13 +178,7 @@
             sports: ['https://www.chinanews.com.cn/rss/sports.xml', 'https://feeds.bbci.co.uk/sport/rss.xml'],
             tech: ['https://www.ithome.com/rss/', 'https://36kr.com/feed']
         };
-        const HOT_APIS = [
-            { name: '百度', url: 'https://api.vvhan.com/api/hotlist/baiduRD', key: 'data' },
-            { name: '知乎', url: 'https://api.vvhan.com/api/hotlist/zhihuHot', key: 'data' },
-            { name: 'B站', url: 'https://api.vvhan.com/api/hotlist/bili', key: 'data' },
-            { name: '抖音', url: 'https://api.vvhan.com/api/hotlist/douyin', key: 'data' },
-            { name: '微博', url: 'https://api.vvhan.com/api/hotlist/weibo', key: 'data' }
-        ];
+        const HOT_DATA = [{"title": "[百度] 不断创造无愧于时代和人民的新业绩", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 哈兰德梅开二度 挪威淘汰巴西", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 内马尔从巴西国家队退役", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 中国制造如何为欧洲降温", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 世界杯：墨西哥vs英格兰", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 内马尔遭巴西球迷痛批", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 内马尔哭了", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 四川绵竹半小时3次地震", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 老人看牙遭全口拔光 医院被顶格处罚", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[百度] 《我不是药神》上映8周年 原型近况", "link": "https://top.baidu.com/board?tab=realtime", "time": "", "desc": ""}, {"title": "[B站] 哈兰德梅开二度", "link": "https://search.bilibili.com/all?keyword=哈兰德梅开二度", "time": "", "desc": ""}, {"title": "[B站] 锐评TES被TSW 3-1", "link": "https://search.bilibili.com/all?keyword=锐评TES被TSW 3-1", "time": "", "desc": ""}, {"title": "[B站] 行走美加墨带你一起看世界杯", "link": "https://search.bilibili.com/all?keyword=行走美加墨带你一起看世界杯", "time": "", "desc": ""}, {"title": "[B站] 内马尔哭了", "link": "https://search.bilibili.com/all?keyword=内马尔哭了", "time": "", "desc": ""}, {"title": "[B站] 成都AG超玩会 深圳DYG", "link": "https://search.bilibili.com/all?keyword=成都AG超玩会 深圳DYG", "time": "", "desc": ""}, {"title": "[B站] 超强台风巴威冲击风王", "link": "https://search.bilibili.com/all?keyword=超强台风巴威冲击风王", "time": "", "desc": ""}, {"title": "[B站] 哈兰德头球破门首开记录", "link": "https://search.bilibili.com/all?keyword=哈兰德头球破门首开记录", "time": "", "desc": ""}, {"title": "[B站] 挪威2-1巴西", "link": "https://search.bilibili.com/all?keyword=挪威2-1巴西", "time": "", "desc": ""}, {"title": "[B站] 内马尔点射扳回一球", "link": "https://search.bilibili.com/all?keyword=内马尔点射扳回一球", "time": "", "desc": ""}, {"title": "[B站] 人大通报蒋方舟论文被指造假事件", "link": "https://search.bilibili.com/all?keyword=人大通报蒋方舟论文被指造假事件", "time": "", "desc": ""}];
         const NEWS_DATES = ["2026-07-06", "2026-06-29"];
 
         const WI = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌦️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"❄️",80:"🌧️",81:"🌧️",82:"🌧️",95:"⛈️",96:"⛈️",99:"⛈️"};
@@ -269,32 +263,6 @@
             return result.slice(0, 20);
         }
 
-        async function fetchHotSearches() {
-            const seen = new Set();
-            const result = [];
-            const promises = HOT_APIS.map(async (api) => {
-                try {
-                    const resp = await fetch(api.url);
-                    const json = await resp.json();
-                    const list = json[api.key] || [];
-                    for (const item of list.slice(0, 6)) {
-                        const title = item.title || item.word || item.name || '';
-                        if (title && !seen.has(title)) {
-                            seen.add(title);
-                            result.push({
-                                title: `[${api.name}] ${title}`,
-                                link: item.url || item.hotUrl || item.link || '#',
-                                time: '',
-                                desc: item.desc || ''
-                            });
-                        }
-                    }
-                } catch(e) {}
-            });
-            await Promise.all(promises);
-            return result.slice(0, 20);
-        }
-
         async function loadAllNews() {
             const rssCats = ['cn', 'sports', 'tech'];
             const ids = {cn:'cnNews', sports:'sportsNews', tech:'techNews'};
@@ -304,10 +272,7 @@
                 const items = await fetchAllNews(cat);
                 renderNews(el, items, cat);
             }
-            const hotEl = document.getElementById('hotNews');
-            hotEl.innerHTML = '<div style="padding:16px;text-align:center"><div class="spinner"></div><div style="color:#999;font-size:12px">加载中...</div></div>';
-            const hotItems = await fetchHotSearches();
-            renderNews(hotEl, hotItems, 'hot');
+            renderNews(document.getElementById('hotNews'), HOT_DATA, 'hot');
         }
 
         loadAllNews();
